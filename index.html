@@ -29,13 +29,13 @@
       background: var(--bg-gradient);
       color: var(--text-color);
       font-family: var(--font-main);
-      text-align: center;
       overflow: hidden;
-      padding: 1rem;
+      text-align: center;
+      padding: 0 1rem;
     }
 
     h1 {
-      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-size: clamp(3rem, 8vw, 5rem);
       font-weight: 800;
       letter-spacing: 1px;
       background: linear-gradient(90deg, #00bfa6, #8ef6e4);
@@ -45,17 +45,13 @@
     }
 
     p {
-      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      font-size: 1.25rem;
       font-weight: 400;
-      margin-top: 1.25rem;
+      margin-top: 1rem;
       color: #cfd8dc;
+      max-width: 600px;
       opacity: 0;
       animation: fadeIn 2s ease 0.8s forwards;
-    }
-
-    .accent {
-      color: var(--accent-color);
-      font-weight: 600;
     }
 
     footer {
@@ -64,19 +60,17 @@
       font-size: 0.85rem;
       color: #9ea7ad;
       opacity: 0.6;
-      animation: fadeIn 2.5s ease 1.2s forwards;
     }
 
     @keyframes fadeIn {
-      to {
-        opacity: 1;
-      }
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
   <h1>ProxLock</h1>
-  <p>We're building something <span class="accent">great</span> — stay tuned.</p>
+  <p>Something great is coming soon. Stay tuned — security, simplified.</p>
   <footer>© <span id="year"></span> ProxLock. All rights reserved.</footer>
 
   <script>
