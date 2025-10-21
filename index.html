@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ProxLock — Coming Soon</title>
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      --text-color: #ffffff;
+      --accent-color: #00bfa6;
+      --font-main: 'Inter', sans-serif;
+    }
+
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-gradient);
+      color: var(--text-color);
+      font-family: var(--font-main);
+      text-align: center;
+      overflow: hidden;
+      padding: 1rem;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 800;
+      letter-spacing: 1px;
+      background: linear-gradient(90deg, #00bfa6, #8ef6e4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: fadeIn 1.5s ease forwards;
+    }
+
+    p {
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      font-weight: 400;
+      margin-top: 1.25rem;
+      color: #cfd8dc;
+      opacity: 0;
+      animation: fadeIn 2s ease 0.8s forwards;
+    }
+
+    .accent {
+      color: var(--accent-color);
+      font-weight: 600;
+    }
+
+    footer {
+      position: absolute;
+      bottom: 20px;
+      font-size: 0.85rem;
+      color: #9ea7ad;
+      opacity: 0.6;
+      animation: fadeIn 2.5s ease 1.2s forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>ProxLock</h1>
+  <p>We're building something <span class="accent">great</span> — stay tuned.</p>
+  <footer>© <span id="year"></span> ProxLock. All rights reserved.</footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
