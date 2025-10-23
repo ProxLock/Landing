@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ProxLock — Coming Soon</title>
-   <!-- Primary Meta Tags -->
+
+  <!-- Primary Meta Tags -->
   <meta name="title" content="ProxLock — Coming Soon" />
   <meta name="description" content="We're building something great — stay tuned." />
 
@@ -23,14 +24,24 @@
   <meta name="twitter:image" content="https://proxlock.dev/og-image.jpg" />
 
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
     :root {
-      --bg-gradient: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      --text-color: #ffffff;
-      --accent-color: #00bfa6;
+      --bg-gradient: linear-gradient(0deg, rgba(0,191,166,0.50) 0%, #d9ece5 45%, #dfe9e6 100%);
+      --text-color: #1e1e1e;
+      --subtext-color: #272828;
+      --accent-color: #7a42ff;
       --font-main: 'Inter', sans-serif;
     }
 
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-gradient: linear-gradient(0deg, rgb(0, 54, 47) 0%, rgb(0, 32, 29) 35%, #151615 100%);
+        --text-color: #f1f3f2;
+        --subtext-color: #c9d1cc;
+        --accent-color: #a580ff;
+      }
+    }
 
     * {
       margin: 0;
@@ -50,39 +61,51 @@
       text-align: center;
       overflow: hidden;
       padding: 1rem;
+      transition: background 0.4s ease, color 0.4s ease;
     }
 
     h1 {
       font-size: clamp(2.5rem, 6vw, 4.5rem);
       font-weight: 800;
       letter-spacing: 1px;
-      background: linear-gradient(90deg, #00bfa6, #8ef6e4);
+      background: linear-gradient(90deg, #6600ff, #954fff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       animation: fadeIn 1.5s ease forwards;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      h1 {
+        background: linear-gradient(90deg, #a580ff, #c0a6ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
     }
 
     p {
       font-size: clamp(1rem, 2.5vw, 1.25rem);
       font-weight: 400;
       margin-top: 1.25rem;
-      color: #cfd8dc;
+      color: var(--subtext-color);
       opacity: 0;
       animation: fadeIn 2s ease 0.8s forwards;
+      transition: color 0.4s ease;
     }
 
     .accent {
       color: var(--accent-color);
       font-weight: 600;
+      transition: color 0.4s ease;
     }
 
     footer {
       position: absolute;
       bottom: 20px;
       font-size: 0.85rem;
-      color: #9ea7ad;
+      color: var(--subtext-color);
       opacity: 0.6;
       animation: fadeIn 2.5s ease 1.2s forwards;
+      transition: color 0.4s ease, opacity 0.4s ease;
     }
 
     @keyframes fadeIn {
