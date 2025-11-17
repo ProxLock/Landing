@@ -89,7 +89,7 @@ export default function DecryptedText({
             key={index}
             className={isRevealed ? 'decrypted-char' : 'encrypting-char'}
           >
-            {char === ' ' ? '\u00A0' : char}
+            {char}
           </span>
         );
       })}

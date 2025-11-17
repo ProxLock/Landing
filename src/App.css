@@ -89,6 +89,9 @@
   animation: fadeInUp 0.8s ease-out 0.2s both;
   font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
   letter-spacing: 0.05em;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
 }
 
 .encrypting-char {
@@ -430,6 +433,7 @@
   .hero {
     padding: 6rem 0 4rem;
   }
+
 
   .hero::after {
     width: 400px;
