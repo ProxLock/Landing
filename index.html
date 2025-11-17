@@ -1,125 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ProxLock — Coming Soon</title>
-
-  <!-- Primary Meta Tags -->
-  <meta name="title" content="ProxLock — Coming Soon" />
-  <meta name="description" content="We're building something great — stay tuned." />
-
-  <!-- Open Graph / Facebook / Discord -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://proxlock.dev/" />
-  <meta property="og:title" content="ProxLock — Coming Soon" />
-  <meta property="og:description" content="We're building something great — stay tuned." />
-
-  <!-- Twitter / X -->
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:url" content="https://proxlock.dev/" />
-  <meta name="twitter:title" content="ProxLock — Coming Soon" />
-  <meta name="twitter:description" content="We're building something great — stay tuned." />
-
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
-
-    :root {
-      --bg-gradient: linear-gradient(0deg, rgba(0,191,166,0.50) 0%, #d9ece5 45%, #dfe9e6 100%);
-      --text-color: #1e1e1e;
-      --subtext-color: #272828;
-      --accent-color: #7a42ff;
-      --font-main: 'Inter', sans-serif;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg-gradient: linear-gradient(0deg, rgb(0, 54, 47) 0%, rgb(0, 32, 29) 35%, #151615 100%);
-        --text-color: #f1f3f2;
-        --subtext-color: #c9d1cc;
-        --accent-color: #a580ff;
-      }
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: var(--bg-gradient);
-      color: var(--text-color);
-      font-family: var(--font-main);
-      text-align: center;
-      overflow: hidden;
-      padding: 1rem;
-      transition: background 0.4s ease, color 0.4s ease;
-    }
-
-    h1 {
-      font-size: clamp(2.5rem, 6vw, 4.5rem);
-      font-weight: 800;
-      letter-spacing: 1px;
-      background: linear-gradient(90deg, #6600ff, #954fff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: fadeIn 1.5s ease forwards;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      h1 {
-        background: linear-gradient(90deg, #8b6bdb, #8b71c7);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-    }
-
-    p {
-      font-size: clamp(1rem, 2.5vw, 1.25rem);
-      font-weight: 400;
-      margin-top: 1.25rem;
-      color: var(--subtext-color);
-      opacity: 0;
-      animation: fadeIn 2s ease 0.8s forwards;
-      transition: color 0.4s ease;
-    }
-
-    .accent {
-      color: var(--accent-color);
-      font-weight: 600;
-      transition: color 0.4s ease;
-    }
-
-    footer {
-      position: absolute;
-      bottom: 20px;
-      font-size: 0.85rem;
-      color: var(--subtext-color);
-      opacity: 0.6;
-      animation: fadeIn 2.5s ease 1.2s forwards;
-      transition: color 0.4s ease, opacity 0.4s ease;
-    }
-
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-      }
-    }
-  </style>
-</head>
-<body>
-  <h1>ProxLock</h1>
-  <p>We're building something <span class="accent">great</span> — stay tuned.</p>
-  <footer>© <span id="year"></span> ProxLock. All rights reserved.</footer>
-
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ProxLock</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
