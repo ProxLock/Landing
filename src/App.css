@@ -300,6 +300,19 @@
   margin: 0;
 }
 
+.footnote-text {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0 0 1rem 0;
+  line-height: 1.6;
+  text-align: left;
+}
+
+.footnote-text sup {
+  color: rgba(139, 107, 219, 0.7);
+  font-weight: 600;
+}
+
 /* CTA Section */
 .cta {
   padding: 8rem 0;
@@ -360,11 +373,11 @@
 
 /* Footer */
 .footer {
-  padding: 3rem 0;
+  padding: 1.5rem 0 3rem 0;
   background: rgba(0, 0, 0, 0.5);
   border-top: 1px solid rgba(255, 255, 255, 0.05);
   color: rgba(255, 255, 255, 0.6);
-  text-align: center;
+  text-align: left;
   backdrop-filter: blur(10px);
 }
 
@@ -372,6 +385,7 @@
   margin: 0;
   font-size: 0.9375rem;
   letter-spacing: 0.02em;
+  text-align: left;
 }
 
 /* Responsive Design */

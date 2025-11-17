@@ -33,8 +33,8 @@ function App() {
               <div className="feature-icon">🔒</div>
               <h3 className="feature-title">Secure by Default</h3>
               <p className="feature-description">
-                Your API keys are encrypted and stored securely. We never expose your credentials 
-                to unauthorized parties.
+                No one has your full API key. We keep an XORed partial key and you keep the other. 
+                We never expose your credentials to unauthorized parties.
               </p>
             </div>
             <div className="feature-card">
@@ -46,35 +46,11 @@ function App() {
               </p>
             </div>
             <div className="feature-card">
-              <div className="feature-icon">📊</div>
-              <h3 className="feature-title">Analytics & Monitoring</h3>
-              <p className="feature-description">
-                Track usage, monitor performance, and get insights into how your APIs 
-                are being consumed.
-              </p>
-            </div>
-            <div className="feature-card">
               <div className="feature-icon">🎯</div>
               <h3 className="feature-title">Easy Integration</h3>
               <p className="feature-description">
-                Simple REST API that works with any application. Get started in minutes 
+                Simple REST API that works with any application<sup>1</sup>. Get started in minutes 
                 with our comprehensive documentation.
-              </p>
-            </div>
-            <div className="feature-card">
-              <div className="feature-icon">🛡️</div>
-              <h3 className="feature-title">Rate Limiting</h3>
-              <p className="feature-description">
-                Protect your APIs from abuse with configurable rate limits and 
-                automatic throttling.
-              </p>
-            </div>
-            <div className="feature-card">
-              <div className="feature-icon">🌐</div>
-              <h3 className="feature-title">Global CDN</h3>
-              <p className="feature-description">
-                Deployed across multiple regions for optimal performance and 
-                reliability worldwide.
               </p>
             </div>
           </div>
@@ -95,6 +71,9 @@ function App() {
 
       <footer className="footer">
         <div className="container">
+          <p className="footnote-text">
+            <sup>1</sup> ProxLock is currently in a limited beta for Apple platforms only.
+          </p>
           <p className="footer-text">
             © {new Date().getFullYear()} ProxLock. All rights reserved.
           </p>
