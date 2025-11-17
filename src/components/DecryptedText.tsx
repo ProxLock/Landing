@@ -15,8 +15,8 @@ export default function DecryptedText({
 }: DecryptedTextProps) {
   const [displayText, setDisplayText] = useState<string>('');
   const [revealedCount, setRevealedCount] = useState<number>(0);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-={}[];:,.<>/?';
 
