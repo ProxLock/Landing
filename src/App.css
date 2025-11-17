@@ -200,14 +200,14 @@
   font-weight: 700;
 }
 
-/* Features Section */
-.features {
+/* How It Works Section */
+.how-it-works {
   padding: 8rem 0;
   background: linear-gradient(180deg, rgba(21, 22, 21, 0.95) 0%, rgba(0, 32, 29, 0.98) 100%);
   position: relative;
 }
 
-.features::before {
+.how-it-works::before {
   content: '';
   position: absolute;
   top: 0;
@@ -215,6 +215,34 @@
   right: 0;
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(139, 107, 219, 0.4), transparent);
+}
+
+.how-it-works-content {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.how-it-works-subsection {
+  text-align: left;
+}
+
+.subsection-title {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 600;
+  color: rgba(207, 201, 255, 0.95);
+  margin: 0 0 1.25rem 0;
+  letter-spacing: -0.01em;
+}
+
+.how-it-works-description {
+  font-size: clamp(1.0625rem, 2vw, 1.25rem);
+  line-height: 1.9;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+  text-align: left;
 }
 
 .section-title {
@@ -399,17 +427,21 @@
     height: 400px;
   }
 
-  .features {
+  .how-it-works {
     padding: 5rem 0;
   }
 
-  .features-grid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
+  .how-it-works-content {
+    padding: 0 1rem;
+    gap: 2.5rem;
   }
 
-  .feature-card {
-    padding: 2.5rem 2rem;
+  .subsection-title {
+    font-size: clamp(1.375rem, 4vw, 1.75rem);
+  }
+
+  .how-it-works-description {
+    text-align: left;
   }
 
   .cta {

@@ -17,7 +17,7 @@ function App() {
           </p>
           <p className="hero-description">
             Protect and manage your API keys with ease. ProxLock provides a secure gateway 
-            for your applications<sup>1</sup>, ensuring your sensitive credentials stay safe.
+            for your applications, ensuring your sensitive credentials stay safe.
           </p>
           <div className="hero-actions">
             <a href="#contact" className="btn btn-primary">Join the Waitlist</a>
@@ -25,32 +25,27 @@ function App() {
         </div>
       </header>
 
-      <section id="features" className="features">
+      <section id="how-it-works" className="how-it-works">
         <div className="container">
-          <h2 className="section-title">Features</h2>
-          <div className="features-grid">
-            <div className="feature-card">
-              <div className="feature-icon">🔒</div>
-              <h3 className="feature-title">Secure by Default</h3>
-              <p className="feature-description">
-                No one has your full API key. We keep an XORed partial key and you keep the other. 
-                We never expose your credentials to unauthorized parties.
+          <h2 className="section-title">How It Works</h2>
+          <div className="how-it-works-content">
+            <div className="how-it-works-subsection">
+              <h3 className="subsection-title">Key Storage & Splitting</h3>
+              <p className="how-it-works-description">
+                ProxLock uses an XORed partial key system to ensure your complete API key is never stored in one place. 
+                We keep one partial key on our secure infrastructure, and you keep the other partial key. When a bearer token 
+                needs to be constructed, both partial keys are combined using XOR encryption. This means no one, including ProxLock, 
+                ever has access to your complete API key—providing an additional layer of security beyond traditional key storage.
               </p>
             </div>
-            <div className="feature-card">
-              <div className="feature-icon">⚡</div>
-              <h3 className="feature-title">Lightning Fast</h3>
-              <p className="feature-description">
-                Built for performance. Our proxy infrastructure ensures minimal latency 
-                and maximum reliability for your applications.
-              </p>
-            </div>
-            <div className="feature-card">
-              <div className="feature-icon">🎯</div>
-              <h3 className="feature-title">Easy Integration</h3>
-              <p className="feature-description">
-                Simple REST API that works with any application<sup>1</sup>. Get started in minutes 
-                with our comprehensive documentation.
+            <div className="how-it-works-subsection">
+              <h3 className="subsection-title">Dynamic Proxying</h3>
+              <p className="how-it-works-description">
+                When your app makes an API request, ProxLock intercepts it through our secure proxy infrastructure. 
+                We validate the app instance using Apple's Device Check to ensure authenticity and prevent unauthorized access. 
+                The bearer token is then dynamically constructed using the combined partial keys, and the request is forwarded 
+                to the target service with proper authentication. This process ensures your credentials remain secure while 
+                maintaining minimal latency and maximum reliability.
               </p>
             </div>
           </div>
