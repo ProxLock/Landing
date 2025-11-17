@@ -33,18 +33,17 @@ function App() {
               <h3 className="subsection-title">Key Storage & Splitting</h3>
               <p className="how-it-works-description">
                 ProxLock uses an XORed partial key system to ensure your complete API key is never stored in one place. 
-                We keep one partial key on our secure infrastructure, and you keep the other partial key. When a bearer token 
-                needs to be constructed, both partial keys are combined using XOR encryption. This means no one, including ProxLock, 
-                ever has access to your complete API key—providing an additional layer of security beyond traditional key storage.
+                When you upload your API key to ProxLock, we split it into two partial keys, so we don't know your complete key either.
               </p>
             </div>
             <div className="how-it-works-subsection">
               <h3 className="subsection-title">Dynamic Proxying</h3>
               <p className="how-it-works-description">
-                When your app makes an API request, ProxLock intercepts it through our secure proxy infrastructure. 
+                When your app makes an API request, ProxLock routes it through our secure proxy infrastructure. 
                 We validate the app instance using Apple's Device Check to ensure authenticity and prevent unauthorized access. 
-                The bearer token is then dynamically constructed using the combined partial keys, and the request is forwarded 
-                to the target service with proper authentication. This process ensures your credentials remain secure while 
+                The bearer token is then dynamically constructed by combining the partial keys, and the request is forwarded 
+                to the target service with proper authentication, which is then relayed back to your app. 
+                This process ensures your credentials remain secure while 
                 maintaining minimal latency and maximum reliability.
               </p>
             </div>
