@@ -350,6 +350,14 @@
   line-height: 1.8;
 }
 
+.waitlist-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
 /* Footer */
 .footer {
   padding: 3rem 0;

@@ -1,5 +1,6 @@
 import './App.css';
 import DecryptedText from './components/DecryptedText';
+import { Waitlist } from '@clerk/clerk-react';
 
 function App() {
   return (
@@ -19,8 +20,7 @@ function App() {
             for your applications, ensuring your sensitive credentials stay safe.
           </p>
           <div className="hero-actions">
-            <a href="#features" className="btn btn-primary">Learn More</a>
-            <a href="#contact" className="btn btn-secondary">Get Started</a>
+            <a href="#contact" className="btn btn-primary">Join the Waitlist</a>
           </div>
         </div>
       </header>
@@ -87,7 +87,9 @@ function App() {
           <p className="cta-description">
             Join thousands of developers who trust ProxLock to secure their API keys.
           </p>
-          <a href="#" className="btn btn-primary btn-large">Sign Up Free</a>
+          <div className="waitlist-container">
+            <Waitlist />
+          </div>
         </div>
       </section>
 
