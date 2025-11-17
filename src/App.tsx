@@ -17,7 +17,7 @@ function App() {
           </p>
           <p className="hero-description">
             Protect and manage your API keys with ease. ProxLock provides a secure gateway 
-            for your applications, ensuring your sensitive credentials stay safe.
+            for your applications<sup>1</sup>, ensuring your sensitive credentials stay safe.
           </p>
           <div className="hero-actions">
             <a href="#contact" className="btn btn-primary">Join the Waitlist</a>
