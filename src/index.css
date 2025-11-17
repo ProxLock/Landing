@@ -22,9 +22,9 @@
 :root[data-theme='light'],
 :root:not([data-theme]) {
   --bg-primary: linear-gradient(180deg, #e8f5f3 0%, #f0f8f7 35%, #ffffff 100%);
-  --bg-hero: linear-gradient(135deg, rgba(232, 245, 243, 0.95) 0%, rgba(240, 248, 247, 0.95) 50%, rgba(255, 255, 255, 0.95) 100%);
+  --bg-hero: linear-gradient(135deg, rgba(250, 252, 251, 0.98) 0%, rgba(240, 248, 245, 0.97) 35%, rgba(235, 245, 240, 0.98) 70%, rgba(245, 250, 248, 0.98) 100%);
   --bg-section: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 248, 247, 0.98) 100%);
-  --bg-cta: linear-gradient(135deg, rgba(232, 245, 243, 0.95) 0%, rgba(240, 248, 247, 0.95) 50%, rgba(255, 255, 255, 0.95) 100%);
+  --bg-cta: linear-gradient(135deg, rgba(250, 252, 251, 0.98) 0%, rgba(240, 248, 245, 0.97) 35%, rgba(235, 245, 240, 0.98) 70%, rgba(245, 250, 248, 0.98) 100%);
   --bg-footer: rgba(248, 250, 249, 0.8);
   --bg-card: rgba(255, 255, 255, 0.7);
   --bg-toggle: rgba(255, 255, 255, 0.9);
