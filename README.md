@@ -1,6 +1,6 @@
 # ProxLock Landing Page
 
-This is the frontend web application for **ProxLock**, a secure API proxy management platform. ProxLock provides a secure gateway for your applications, ensuring your sensitive API credentials stay safe through an innovative XORed partial key system.
+This is the landing website for **ProxLock**, a secure API proxy management platform. ProxLock provides a secure gateway for your applications, ensuring your sensitive API credentials stay safe through an innovative XORed partial key system.
 
 ## About ProxLock
 
