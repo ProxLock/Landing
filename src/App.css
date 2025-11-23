@@ -225,7 +225,6 @@
 /* How It Works Section */
 .how-it-works {
   padding: 3rem 0 4rem 0;
-  background: var(--bg-section);
   position: relative;
   transition: background 0.3s ease;
 }
@@ -369,7 +368,6 @@
 /* Open Source Section */
 .open-source {
   padding: 4rem 0;
-  background: var(--bg-primary);
   text-align: center;
   position: relative;
 }
@@ -448,7 +446,6 @@
 
 .cta {
   padding: 4rem 0 8rem 0;
-  background: var(--bg-cta);
   color: var(--text-primary);
   text-align: center;
   position: relative;

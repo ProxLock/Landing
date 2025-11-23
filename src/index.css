@@ -28,7 +28,7 @@
   --bg-footer: rgba(248, 250, 249, 0.8);
   --bg-card: rgba(255, 255, 255, 0.7);
   --bg-toggle: rgba(255, 255, 255, 0.9);
-  
+
   --text-primary: #1a1a1a;
   --text-secondary: rgba(26, 26, 26, 0.85);
   --text-tertiary: rgba(26, 26, 26, 0.6);
@@ -36,25 +36,25 @@
   --text-hero-subtitle: rgba(107, 77, 179, 0.9);
   --text-section-title: linear-gradient(135deg, #6b4db3 0%, #7b5dc3 50%, #8b6bdb 100%);
   --text-subsection-title: rgba(107, 77, 179, 0.95);
-  
+
   --border-primary: rgba(107, 77, 179, 0.2);
   --border-secondary: rgba(107, 77, 179, 0.1);
   --border-toggle: rgba(107, 77, 179, 0.2);
   --border-toggle-hover: rgba(107, 77, 179, 0.4);
-  
+
   --shadow-primary: rgba(107, 77, 179, 0.15);
   --shadow-secondary: rgba(0, 0, 0, 0.1);
   --shadow-toggle: rgba(107, 77, 179, 0.1);
   --shadow-toggle-hover: rgba(107, 77, 179, 0.2);
-  
+
   --icon-toggle: #6b4db3;
-  
+
   --gradient-accent: linear-gradient(135deg, #8b6bdb 0%, #8b71c7 100%);
   --gradient-accent-hover: linear-gradient(135deg, #9b7beb 0%, #9b81d7 100%);
   --gradient-glow: rgba(139, 107, 219, 0.2);
   --gradient-glow-subtle: rgba(139, 107, 219, 0.1);
   --gradient-glow-minimal: rgba(139, 107, 219, 0.05);
-  
+
   --pattern-opacity: 0.02;
 }
 
@@ -67,7 +67,7 @@
   --bg-footer: rgba(0, 0, 0, 0.5);
   --bg-card: rgba(255, 255, 255, 0.05);
   --bg-toggle: rgba(21, 22, 21, 0.9);
-  
+
   --text-primary: #ffffff;
   --text-secondary: rgba(255, 255, 255, 0.85);
   --text-tertiary: rgba(255, 255, 255, 0.5);
@@ -75,25 +75,25 @@
   --text-hero-subtitle: rgba(207, 201, 255, 0.95);
   --text-section-title: linear-gradient(135deg, #8b6bdb 0%, #8b71c7 50%, #a58bff 100%);
   --text-subsection-title: rgba(207, 201, 255, 0.95);
-  
+
   --border-primary: rgba(255, 255, 255, 0.1);
   --border-secondary: rgba(255, 255, 255, 0.05);
   --border-toggle: rgba(255, 255, 255, 0.1);
   --border-toggle-hover: rgba(139, 107, 219, 0.4);
-  
+
   --shadow-primary: rgba(139, 107, 219, 0.4);
   --shadow-secondary: rgba(0, 0, 0, 0.2);
   --shadow-toggle: rgba(139, 107, 219, 0.2);
   --shadow-toggle-hover: rgba(139, 107, 219, 0.3);
-  
+
   --icon-toggle: rgba(207, 201, 255, 0.95);
-  
+
   --gradient-accent: linear-gradient(135deg, #8b6bdb 0%, #8b71c7 100%);
   --gradient-accent-hover: linear-gradient(135deg, #9b7beb 0%, #9b81d7 100%);
   --gradient-glow: rgba(139, 107, 219, 0.2);
   --gradient-glow-subtle: rgba(139, 107, 219, 0.15);
   --gradient-glow-minimal: rgba(139, 107, 219, 0.1);
-  
+
   --pattern-opacity: 0.03;
 }
 
