@@ -2,15 +2,53 @@ import './App.css';
 import DecryptedText from './components/DecryptedText';
 import { Waitlist } from '@clerk/clerk-react';
 import logo from './assets/logo.svg';
+import { useState, useRef, useEffect } from 'react';
 
 function App() {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const subtitleRef = useRef<HTMLParagraphElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const isMobile = window.innerWidth <= 768;
+      const targetRef = isMobile ? subtitleRef : titleRef;
+
+      if (targetRef.current) {
+        // Since getBoundingClientRect is relative to viewport,
+        // when we scroll down, the element moves up (negative top).
+        // We want to trigger when the element is scrolled past.
+        // However, a simpler way relative to document is offsetTop.
+
+        // Let's use the offsetTop approach as planned, but we need to be careful about
+        // when the component mounts and layout.
+
+        const element = targetRef.current;
+        const threshold = element.offsetTop + element.offsetHeight;
+
+        if (window.scrollY > threshold) {
+          setIsScrolled(true);
+        } else {
+          setIsScrolled(false);
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <div className="landing-page">
-      <header className="hero">
+      <div className={`sticky-header ${isScrolled ? 'scrolled' : ''}`}>
         <img src={logo} alt="ProxLock Logo" className="app-logo" />
+        <span className="sticky-title">ProxLock</span>
+      </div>
+      <header className="hero">
+        <img src={logo} alt="ProxLock Logo" className="hero-logo" />
         <div className="container">
-          <h1 className="hero-title">ProxLock</h1>
-          <p className="hero-subtitle">
+          <h1 className="hero-title" ref={titleRef}>ProxLock</h1>
+          <p className="hero-subtitle" ref={subtitleRef}>
             <DecryptedText
               text="Secure API Proxy Management"
               speed={50}

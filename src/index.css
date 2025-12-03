@@ -28,6 +28,7 @@
   --bg-footer: rgba(248, 250, 249, 0.8);
   --bg-card: rgba(255, 255, 255, 0.7);
   --bg-toggle: rgba(255, 255, 255, 0.9);
+  --bg-sticky-header: rgba(255, 255, 255, 0.8);
 
   --text-primary: #1a1a1a;
   --text-secondary: rgba(26, 26, 26, 0.85);
@@ -67,6 +68,7 @@
   --bg-footer: rgba(0, 0, 0, 0.5);
   --bg-card: rgba(255, 255, 255, 0.05);
   --bg-toggle: rgba(21, 22, 21, 0.9);
+  --bg-sticky-header: rgba(21, 22, 21, 0.8);
 
   --text-primary: #ffffff;
   --text-secondary: rgba(255, 255, 255, 0.85);
