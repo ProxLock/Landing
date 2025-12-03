@@ -6,8 +6,10 @@ import { useState, useRef, useEffect } from 'react';
 
 function App() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [showStickyWaitlist, setShowStickyWaitlist] = useState(false);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
+  const waitlistBtnRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,14 +17,6 @@ function App() {
       const targetRef = isMobile ? subtitleRef : titleRef;
 
       if (targetRef.current) {
-        // Since getBoundingClientRect is relative to viewport,
-        // when we scroll down, the element moves up (negative top).
-        // We want to trigger when the element is scrolled past.
-        // However, a simpler way relative to document is offsetTop.
-
-        // Let's use the offsetTop approach as planned, but we need to be careful about
-        // when the component mounts and layout.
-
         const element = targetRef.current;
         const threshold = element.offsetTop + element.offsetHeight;
 
@@ -30,6 +24,18 @@ function App() {
           setIsScrolled(true);
         } else {
           setIsScrolled(false);
+        }
+      }
+
+      if (waitlistBtnRef.current) {
+        const btnElement = waitlistBtnRef.current;
+        const rect = btnElement.getBoundingClientRect();
+
+        // Show when the button has scrolled past the top of the viewport
+        if (rect.bottom < 0) {
+          setShowStickyWaitlist(true);
+        } else {
+          setShowStickyWaitlist(false);
         }
       }
     };
@@ -43,6 +49,12 @@ function App() {
       <div className={`sticky-header ${isScrolled ? 'scrolled' : ''}`}>
         <img src={logo} alt="ProxLock Logo" className="app-logo" />
         <span className="sticky-title">ProxLock</span>
+        <a
+          href="#contact"
+          className={`btn btn-primary sticky-waitlist-btn ${showStickyWaitlist ? 'visible' : ''}`}
+        >
+          Join the Waitlist
+        </a>
       </div>
       <header className="hero">
         <img src={logo} alt="ProxLock Logo" className="hero-logo" />
@@ -60,7 +72,7 @@ function App() {
             for your applications<sup>1</sup>, ensuring your sensitive credentials stay safe.
           </p>
           <div className="hero-actions">
-            <a href="#contact" className="btn btn-primary">Join the Waitlist</a>
+            <a href="#contact" className="btn btn-primary" ref={waitlistBtnRef}>Join the Waitlist</a>
           </div>
         </div>
       </header>
