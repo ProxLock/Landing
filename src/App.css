@@ -306,6 +306,10 @@
   font-weight: 700;
 }
 
+.mobile-text {
+  display: none;
+}
+
 /* How It Works Section */
 .how-it-works {
   padding: 3rem 0 4rem 0;
@@ -616,6 +620,22 @@
 @media (max-width: 768px) {
   .hero {
     padding: 2rem 0 4rem;
+  }
+
+  .sticky-header {
+    padding: 1rem 1rem;
+  }
+
+  .sticky-header.scrolled {
+    padding: 0.5rem 1rem;
+  }
+
+  .desktop-text {
+    display: none;
+  }
+
+  .mobile-text {
+    display: inline;
   }
 
 

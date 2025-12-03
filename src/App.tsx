@@ -18,7 +18,7 @@ function App() {
 
       if (targetRef.current) {
         const element = targetRef.current;
-        const threshold = element.offsetTop + element.offsetHeight;
+        const threshold = element.offsetTop + element.offsetHeight - (isMobile ? 0 : 50);
 
         if (window.scrollY > threshold) {
           setIsScrolled(true);
@@ -53,7 +53,7 @@ function App() {
           href="#contact"
           className={`btn btn-primary sticky-waitlist-btn ${showStickyWaitlist ? 'visible' : ''}`}
         >
-          Join the Waitlist
+          <span className="desktop-text">Join the Waitlist</span><span className="mobile-text">Join Waitlist</span>
         </a>
       </div>
       <header className="hero">
@@ -72,7 +72,7 @@ function App() {
             for your applications<sup>1</sup>, ensuring your sensitive credentials stay safe.
           </p>
           <div className="hero-actions">
-            <a href="#contact" className="btn btn-primary" ref={waitlistBtnRef}>Join the Waitlist</a>
+            <a href="#contact" className="btn btn-primary" ref={waitlistBtnRef}><span className="desktop-text">Join the Waitlist</span><span className="mobile-text">Join Waitlist</span></a>
           </div>
         </div>
       </header>
