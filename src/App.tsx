@@ -1,11 +1,13 @@
 import './App.css';
 import DecryptedText from './components/DecryptedText';
 import { Waitlist } from '@clerk/clerk-react';
+import logo from './assets/logo.svg';
 
 function App() {
   return (
     <div className="landing-page">
       <header className="hero">
+        <img src={logo} alt="ProxLock Logo" className="app-logo" />
         <div className="container">
           <h1 className="hero-title">ProxLock</h1>
           <p className="hero-subtitle">

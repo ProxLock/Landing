@@ -8,6 +8,15 @@
   transition: background 0.3s ease;
 }
 
+.app-logo {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  width: 80px;
+  height: 80px;
+  z-index: 1000;
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -531,7 +540,7 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .hero {
-    padding: 6rem 0 4rem;
+    padding: 2rem 0 4rem;
   }
 
 
@@ -583,6 +592,14 @@
 
   .section-title {
     margin-bottom: 3.5rem;
+  }
+
+  .app-logo {
+    position: static;
+    display: block;
+    margin: 0 auto 1rem auto;
+    width: 120px;
+    height: 120px;
   }
 }
 
