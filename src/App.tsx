@@ -1,14 +1,66 @@
 import './App.css';
 import DecryptedText from './components/DecryptedText';
 import { Waitlist } from '@clerk/clerk-react';
+import logo from './assets/logo.svg';
+import { useState, useRef, useEffect } from 'react';
 
 function App() {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [showStickyWaitlist, setShowStickyWaitlist] = useState(false);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const subtitleRef = useRef<HTMLParagraphElement>(null);
+  const waitlistBtnRef = useRef<HTMLAnchorElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const isMobile = window.innerWidth <= 768;
+      const targetRef = isMobile ? subtitleRef : titleRef;
+
+      if (targetRef.current) {
+        const element = targetRef.current;
+        const threshold = element.offsetTop + element.offsetHeight - (isMobile ? 0 : 50);
+
+        if (window.scrollY > threshold) {
+          setIsScrolled(true);
+        } else {
+          setIsScrolled(false);
+        }
+      }
+
+      if (waitlistBtnRef.current) {
+        const btnElement = waitlistBtnRef.current;
+        const rect = btnElement.getBoundingClientRect();
+
+        // Show when the button has scrolled past the top of the viewport
+        if (rect.bottom < 0) {
+          setShowStickyWaitlist(true);
+        } else {
+          setShowStickyWaitlist(false);
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <div className="landing-page">
+      <div className={`sticky-header ${isScrolled ? 'scrolled' : ''}`}>
+        <img src={logo} alt="ProxLock Logo" className="app-logo" />
+        <span className="sticky-title">ProxLock</span>
+        <a
+          href="#contact"
+          className={`btn btn-primary sticky-waitlist-btn ${showStickyWaitlist ? 'visible' : ''}`}
+        >
+          <span className="desktop-text">Join the Waitlist</span><span className="mobile-text">Join Waitlist</span>
+        </a>
+      </div>
       <header className="hero">
+        <img src={logo} alt="ProxLock Logo" className="hero-logo" />
         <div className="container">
-          <h1 className="hero-title">ProxLock</h1>
-          <p className="hero-subtitle">
+          <h1 className="hero-title" ref={titleRef}>ProxLock</h1>
+          <p className="hero-subtitle" ref={subtitleRef}>
             <DecryptedText
               text="Secure API Proxy Management"
               speed={50}
@@ -20,7 +72,7 @@ function App() {
             for your applications<sup>1</sup>, ensuring your sensitive credentials stay safe.
           </p>
           <div className="hero-actions">
-            <a href="#contact" className="btn btn-primary">Join the Waitlist</a>
+            <a href="#contact" className="btn btn-primary" ref={waitlistBtnRef}><span className="desktop-text">Join the Waitlist</span><span className="mobile-text">Join Waitlist</span></a>
           </div>
         </div>
       </header>

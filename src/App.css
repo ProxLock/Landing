@@ -8,6 +8,90 @@
   transition: background 0.3s ease;
 }
 
+.sticky-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 1rem 2rem;
+  transition: background 0.3s ease, backdrop-filter 0.3s ease, border-bottom 0.3s ease;
+  pointer-events: none;
+  /* Let clicks pass through to elements below when not interacting with header content */
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sticky-header.scrolled {
+  background: var(--bg-sticky-header);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-primary);
+  pointer-events: auto;
+  padding: 0.5rem 2rem;
+}
+
+.sticky-title {
+  font-weight: 700;
+  font-size: 1.5rem;
+  background: var(--text-hero-title);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+}
+
+.sticky-header.scrolled .sticky-title {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.sticky-waitlist-btn {
+  margin-left: auto;
+  opacity: 0 !important;
+  transform: translateY(10px) !important;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  padding: 0.35rem 1.5rem !important;
+  font-size: 0.9rem;
+  animation: none !important;
+}
+
+.sticky-waitlist-btn.visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  pointer-events: auto;
+}
+
+
+
+.hero-logo {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  width: 80px;
+  height: 80px;
+  z-index: 1000;
+  display: none;
+  /* Hidden on desktop, shown on mobile */
+}
+
+.app-logo {
+  width: 80px;
+  height: 80px;
+  /* Removed opacity/transform to make it always visible on desktop */
+  transition: all 0.3s ease;
+}
+
+.sticky-header.scrolled .app-logo {
+  width: 40px;
+  height: 40px;
+  /* No opacity change needed as it's always visible */
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -19,7 +103,7 @@
 .hero {
   background: var(--bg-hero);
   color: var(--text-primary);
-  padding: 10rem 0 8rem;
+  padding: 6rem 0 8rem;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -220,6 +304,10 @@
   padding: 1.25rem 3rem;
   font-size: 1.1875rem;
   font-weight: 700;
+}
+
+.mobile-text {
+  display: none;
 }
 
 /* How It Works Section */
@@ -531,7 +619,23 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .hero {
-    padding: 6rem 0 4rem;
+    padding: 2rem 0 4rem;
+  }
+
+  .sticky-header {
+    padding: 1rem 1rem;
+  }
+
+  .sticky-header.scrolled {
+    padding: 0.5rem 1rem;
+  }
+
+  .desktop-text {
+    display: none;
+  }
+
+  .mobile-text {
+    display: inline;
   }
 
 
@@ -581,8 +685,32 @@
     text-align: center;
   }
 
+  .sticky-waitlist-btn {
+    width: auto !important;
+  }
+
   .section-title {
     margin-bottom: 3.5rem;
+  }
+
+  .hero-logo {
+    position: static;
+    display: block;
+    margin: 0 auto 1rem auto;
+    width: 120px;
+    height: 120px;
+  }
+
+  .app-logo {
+    width: 40px;
+    height: 40px;
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  .sticky-header.scrolled .app-logo {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
