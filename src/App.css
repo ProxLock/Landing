@@ -8,12 +8,14 @@
   transition: background 0.3s ease;
 }
 
+/* Sticky Header z-index must be higher than mobile menu for toggle to be visible */
 .sticky-header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1000;
+  z-index: 2000;
+  /* Increased from 1000 */
   padding: 1rem 2rem;
   transition: background 0.3s ease, backdrop-filter 0.3s ease, border-bottom 0.3s ease;
   pointer-events: none;
@@ -21,6 +23,33 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+/* ... existing code ... */
+
+/* Mobile Menu Overlay */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  /* Use a solid background color with high opacity */
+  background: #ffffff;
+  /* Fallback */
+  z-index: 1500;
+  /* Increased from 1000, but lower than sticky-header (2000) */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 2rem;
+  /* Ensure content isn't hidden behind header */
+  padding-top: 80px;
 }
 
 .sticky-header.scrolled {
@@ -138,11 +167,90 @@
   /* Add a bit of gap if needed, or rely on flex gap */
 }
 
-/* On mobile, might want to hide the Pricing link or adjust */
+/* Mobile Toggle Button */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  color: var(--text-primary);
+  z-index: 2000;
+  /* Above mobile menu */
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-toggle svg {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+/* On mobile, hide desktop nav and show hamburger */
 @media (max-width: 768px) {
-  .nav-link {
-    display: none;
+
+  .nav-pill,
+  .sticky-waitlist-btn {
+    display: none !important;
   }
+
+  .nav-toggle {
+    display: flex;
+  }
+}
+
+/* Mobile Menu Overlay */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: var(--bg-primary);
+  /* Should match theme background */
+  /* Add glass effect if preferred, but solid/semi-transparent prevents content bleed */
+  background: rgba(var(--bg-primary), 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 2rem;
+}
+
+.mobile-menu.open {
+  transform: translateX(0);
+}
+
+.mobile-nav-link {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.mobile-nav-link:hover {
+  color: var(--icon-toggle);
+}
+
+.mobile-menu .btn {
+  font-size: 1.2rem;
+  padding: 0.75rem 2rem;
+  width: 100%;
+  max-width: 300px;
+  text-align: center;
 }
 
 

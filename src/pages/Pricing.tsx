@@ -1,29 +1,10 @@
 import '../App.css';
-import logo from '../assets/logo.svg';
+import Navigation from '../components/Navigation';
 
 function Pricing() {
     return (
         <div className="pricing-page">
-            <div className="sticky-header scrolled">
-                <a href="/" className="logo-link">
-                    <img src={logo} alt="ProxLock Logo" className="app-logo" />
-                </a>
-                <a href="/" className="logo-link">
-                    <span className="sticky-title">ProxLock</span>
-                </a>
-                <div className="header-actions">
-                    <div className="nav-pill">
-                        <a href="/pricing" className="nav-link" style={{ opacity: 1, transform: 'none' }}>Pricing</a>
-                        <a href="https://docs.proxlock.dev" className="nav-link" style={{ opacity: 1, transform: 'none' }}>Docs</a>
-                    </div>
-                    <a
-                        href="/https://app.proxlock.dev"
-                        className="btn btn-primary sticky-waitlist-btn visible"
-                    >
-                        <span> Get Started</span>
-                    </a>
-                </div>
-            </div>
+            <Navigation isScrolled={true} showWaitlist={true} />
 
             <div className="container pricing-container">
                 <h1 className="section-title pricing-title">Simple Pricing</h1>
@@ -69,9 +50,6 @@ function Pricing() {
 
             <footer className="footer">
                 <div className="container">
-                    <p className="footnote-text">
-                        <sup>1</sup> ProxLock is currently in a limited beta for Apple platforms only.
-                    </p>
                     <p className="footer-text">
                         © {new Date().getFullYear()} ProxLock. All rights reserved.
                     </p>

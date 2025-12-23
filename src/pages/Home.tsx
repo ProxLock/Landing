@@ -3,6 +3,7 @@ import DecryptedText from '../components/DecryptedText';
 import { SignUp } from '@clerk/clerk-react';
 import logo from '../assets/logo.svg';
 import { useState, useRef, useEffect } from 'react';
+import Navigation from '../components/Navigation';
 
 function Home() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -46,22 +47,7 @@ function Home() {
 
     return (
         <div className="landing-page">
-            <div className={`sticky-header ${isScrolled ? 'scrolled' : ''}`}>
-                <img src={logo} alt="ProxLock Logo" className="app-logo" />
-                <span className="sticky-title">ProxLock</span>
-                <div className="header-actions">
-                    <div className="nav-pill">
-                        <a href="/pricing" className="nav-link">Pricing</a>
-                        <a href="https://docs.proxlock.dev" className="nav-link">Docs</a>
-                    </div>
-                    <a
-                        href="https://app.proxlock.dev"
-                        className={`btn btn-primary sticky-waitlist-btn ${showStickyWaitlist ? 'visible' : ''}`}
-                    >
-                        <span>Get Started</span>
-                    </a>
-                </div>
-            </div>
+            <Navigation isScrolled={isScrolled} showWaitlist={showStickyWaitlist} />
             <header className="hero">
                 <img src={logo} alt="ProxLock Logo" className="hero-logo" />
                 <div className="container">
