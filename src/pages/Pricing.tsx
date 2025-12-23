@@ -22,7 +22,7 @@ function Pricing() {
                         <a href="https://app.proxlock.dev" className="btn btn-secondary plan-btn">Get Started</a>
                     </div>
 
-                    {/* 10k Requests Plan */}
+                    {/* Plus Plan */}
                     <div className="pricing-card featured">
                         <h3 className="plan-name">Plus</h3>
                         <div className="plan-price">
@@ -34,7 +34,7 @@ function Pricing() {
                         <a href="https://app.proxlock.dev" className="btn btn-primary plan-btn">Get Started</a>
                     </div>
 
-                    {/* 25k Requests Plan */}
+                    {/* Pro Plan */}
                     <div className="pricing-card">
                         <h3 className="plan-name">Pro</h3>
                         <div className="plan-price">
