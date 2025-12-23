@@ -20,7 +20,7 @@ function Pricing() {
                         href="/https://app.proxlock.dev"
                         className="btn btn-primary sticky-waitlist-btn visible"
                     >
-                        <span className="desktop-text">Get Started</span><span className="mobile-text">Join Waitlist</span>
+                        <span> Get Started</span>
                     </a>
                 </div>
             </div>
@@ -38,7 +38,7 @@ function Pricing() {
                         </div>
                         <p className="plan-billing">Always free</p>
                         <p className="plan-description">Get up to 3,000 proxy requests each month.</p>
-                        <a href="/https://app.proxlock.dev" className="btn btn-secondary plan-btn">Get Started</a>
+                        <a href="https://app.proxlock.dev" className="btn btn-secondary plan-btn">Get Started</a>
                     </div>
 
                     {/* 10k Requests Plan */}
@@ -50,7 +50,7 @@ function Pricing() {
                         </div>
                         <p className="plan-billing">Only billed monthly</p>
                         <p className="plan-description">Get up to 10,000 proxy requests each month.</p>
-                        <a href="/https://app.proxlock.dev" className="btn btn-primary plan-btn">Get Started</a>
+                        <a href="https://app.proxlock.dev" className="btn btn-primary plan-btn">Get Started</a>
                     </div>
 
                     {/* 25k Requests Plan */}
@@ -62,7 +62,7 @@ function Pricing() {
                         </div>
                         <p className="plan-billing">Only billed monthly</p>
                         <p className="plan-description">Get up to 25,000 proxy requests each month.</p>
-                        <a href="/https://app.proxlock.dev" className="btn btn-secondary plan-btn">Get Started</a>
+                        <a href="https://app.proxlock.dev" className="btn btn-secondary plan-btn">Get Started</a>
                     </div>
                 </div>
             </div>
