@@ -1,6 +1,6 @@
 import '../App.css';
 import DecryptedText from '../components/DecryptedText';
-import { Waitlist } from '@clerk/clerk-react';
+import { SignUp } from '@clerk/clerk-react';
 import logo from '../assets/logo.svg';
 import { useState, useRef, useEffect } from 'react';
 
@@ -55,10 +55,10 @@ function Home() {
                         <a href="https://docs.proxlock.dev" className="nav-link">Docs</a>
                     </div>
                     <a
-                        href="#signup"
+                        href="https://app.proxlock.dev"
                         className={`btn btn-primary sticky-waitlist-btn ${showStickyWaitlist ? 'visible' : ''}`}
                     >
-                        <span className="desktop-text">Join the Waitlist</span><span className="mobile-text">Join Waitlist</span>
+                        <span>Get Started</span>
                     </a>
                 </div>
             </div>
@@ -78,7 +78,7 @@ function Home() {
                         for your applications<sup>1</sup>, ensuring your sensitive credentials stay safe.
                     </p>
                     <div className="hero-actions">
-                        <a href="#signup" className="btn btn-primary" ref={waitlistBtnRef}><span className="desktop-text">Join the Waitlist</span><span className="mobile-text">Join Waitlist</span></a>
+                        <a href="https://app.proxlock.dev" className="btn btn-primary" ref={waitlistBtnRef}><span>Get Started</span></a>
                     </div>
                 </div>
             </header>
@@ -152,10 +152,10 @@ function Home() {
                 <div className="container">
                     <h2 className="cta-title">Ready to Get Started?</h2>
                     <p className="cta-description">
-                        Join the waitlist for our limited Apple platform beta. <span className="cta-description-break">Don't worry, we plan to support other platforms soon.</span>
+                        Join our limited Apple platform beta. <span className="cta-description-break">Don't worry, we plan to support other platforms soon.</span>
                     </p>
                     <div className="waitlist-container">
-                        <Waitlist />
+                        <SignUp />
                     </div>
                 </div>
             </section>
