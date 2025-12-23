@@ -55,7 +55,7 @@ function Home() {
                         <a href="https://docs.proxlock.dev" className="nav-link">Docs</a>
                     </div>
                     <a
-                        href="#contact"
+                        href="#signup"
                         className={`btn btn-primary sticky-waitlist-btn ${showStickyWaitlist ? 'visible' : ''}`}
                     >
                         <span className="desktop-text">Join the Waitlist</span><span className="mobile-text">Join Waitlist</span>
@@ -78,7 +78,7 @@ function Home() {
                         for your applications<sup>1</sup>, ensuring your sensitive credentials stay safe.
                     </p>
                     <div className="hero-actions">
-                        <a href="#contact" className="btn btn-primary" ref={waitlistBtnRef}><span className="desktop-text">Join the Waitlist</span><span className="mobile-text">Join Waitlist</span></a>
+                        <a href="#signup" className="btn btn-primary" ref={waitlistBtnRef}><span className="desktop-text">Join the Waitlist</span><span className="mobile-text">Join Waitlist</span></a>
                     </div>
                 </div>
             </header>
@@ -148,7 +148,7 @@ function Home() {
 
 
 
-            <section id="contact" className="cta">
+            <section id="signup" className="cta">
                 <div className="container">
                     <h2 className="cta-title">Ready to Get Started?</h2>
                     <p className="cta-description">
