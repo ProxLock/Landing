@@ -43,7 +43,7 @@ function Pricing() {
 
                     {/* 10k Requests Plan */}
                     <div className="pricing-card featured">
-                        <h3 className="plan-name">10k Requests</h3>
+                        <h3 className="plan-name">Plus</h3>
                         <div className="plan-price">
                             <span className="currency">$</span>10
                             <span className="period">/month</span>
@@ -55,7 +55,7 @@ function Pricing() {
 
                     {/* 25k Requests Plan */}
                     <div className="pricing-card">
-                        <h3 className="plan-name">25k Requests</h3>
+                        <h3 className="plan-name">Pro</h3>
                         <div className="plan-price">
                             <span className="currency">$</span>20
                             <span className="period">/month</span>
