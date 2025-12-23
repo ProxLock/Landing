@@ -49,21 +49,100 @@
   transform: translateY(0);
 }
 
-.sticky-waitlist-btn {
+.header-actions {
   margin-left: auto;
-  opacity: 0 !important;
-  transform: translateY(10px) !important;
-  pointer-events: none;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  /* Reduced from 2rem */
+  pointer-events: auto;
+  /* Allow clicking links even if header is pointer-events: none */
+}
+
+/* Capsule background for nav links */
+.nav-pill {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  /* Use explicit rgba for a glassy look instead of var(--bg-card) which might be flat/gradient */
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 100px;
+  padding: 0.5rem 1.5rem;
   transition: all 0.3s ease;
-  padding: 0.35rem 1.5rem !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* When header is scrolled (solid background), make pill transparent */
+.sticky-header.scrolled .nav-pill {
+  background: transparent;
+  border-color: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  padding: 0;
+  box-shadow: none;
+}
+
+.nav-link {
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  transition: color 0.2s ease;
+  /* Always visible */
+  opacity: 1;
+  transform: none;
+}
+
+/* Remove the scroll-based fade in for nav-link since it's now always visible */
+/* .sticky-header.scrolled .nav-link { ... } removed */
+
+.nav-link:hover {
+  color: var(--text-primary);
+}
+
+.sticky-waitlist-btn {
+  /* Collapsed state by default */
+  opacity: 0;
+  transform: none;
+  /* No vertical movement */
+  pointer-events: none;
+  transition: all 0.4s ease;
+  /* Standard smooth fade */
+
+  max-width: 0;
+  padding: 0 !important;
+  margin: 0;
+  overflow: hidden;
+  white-space: nowrap;
+
   font-size: 0.9rem;
   animation: none !important;
+  border: 0 solid transparent;
+  /* Ensure border doesn't take space */
 }
 
 .sticky-waitlist-btn.visible {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
+  /* Visible state */
+  opacity: 1;
+  transform: translateY(0);
   pointer-events: auto;
+
+  max-width: 200px;
+  /* Sufficient max-width to fit content */
+  padding: 0.35rem 1.5rem !important;
+  margin-left: 0.25rem;
+  /* Reduced from 0.5rem */
+  /* Add a bit of gap if needed, or rely on flex gap */
+}
+
+/* On mobile, might want to hide the Pricing link or adjust */
+@media (max-width: 768px) {
+  .nav-link {
+    display: none;
+  }
 }
 
 

@@ -11,12 +11,18 @@ function Pricing() {
                 <a href="/" className="logo-link">
                     <span className="sticky-title">ProxLock</span>
                 </a>
-                <a
-                    href="/#contact"
-                    className="btn btn-primary sticky-waitlist-btn visible"
-                >
-                    <span className="desktop-text">Join the Waitlist</span><span className="mobile-text">Join Waitlist</span>
-                </a>
+                <div className="header-actions">
+                    <div className="nav-pill">
+                        <a href="/pricing" className="nav-link" style={{ opacity: 1, transform: 'none' }}>Pricing</a>
+                        <a href="https://docs.proxlock.dev" className="nav-link" style={{ opacity: 1, transform: 'none' }}>Docs</a>
+                    </div>
+                    <a
+                        href="/#contact"
+                        className="btn btn-primary sticky-waitlist-btn visible"
+                    >
+                        <span className="desktop-text">Join the Waitlist</span><span className="mobile-text">Join Waitlist</span>
+                    </a>
+                </div>
             </div>
 
             <div className="container pricing-container">

@@ -49,12 +49,18 @@ function Home() {
             <div className={`sticky-header ${isScrolled ? 'scrolled' : ''}`}>
                 <img src={logo} alt="ProxLock Logo" className="app-logo" />
                 <span className="sticky-title">ProxLock</span>
-                <a
-                    href="#contact"
-                    className={`btn btn-primary sticky-waitlist-btn ${showStickyWaitlist ? 'visible' : ''}`}
-                >
-                    <span className="desktop-text">Join the Waitlist</span><span className="mobile-text">Join Waitlist</span>
-                </a>
+                <div className="header-actions">
+                    <div className="nav-pill">
+                        <a href="/pricing" className="nav-link">Pricing</a>
+                        <a href="https://docs.proxlock.dev" className="nav-link">Docs</a>
+                    </div>
+                    <a
+                        href="#contact"
+                        className={`btn btn-primary sticky-waitlist-btn ${showStickyWaitlist ? 'visible' : ''}`}
+                    >
+                        <span className="desktop-text">Join the Waitlist</span><span className="mobile-text">Join Waitlist</span>
+                    </a>
+                </div>
             </div>
             <header className="hero">
                 <img src={logo} alt="ProxLock Logo" className="hero-logo" />
