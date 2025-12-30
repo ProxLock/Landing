@@ -805,6 +805,22 @@
   text-align: left;
 }
 
+.footer-social {
+  display: flex;
+  justify-content: flex-start;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.social-icon {
+  color: var(--text-tertiary);
+}
+
+.social-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .hero {
