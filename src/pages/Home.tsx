@@ -64,6 +64,7 @@ function Home() {
                         for your applications<sup>1</sup>, ensuring your sensitive credentials stay safe.
                     </p>
                     <div className="hero-actions">
+                        <a href="https://docs.proxlock.dev" className="btn btn-secondary"><span>Docs</span></a>
                         <a href="https://app.proxlock.dev" className="btn btn-primary" ref={waitlistBtnRef}><span>Get Started</span></a>
                     </div>
                 </div>
