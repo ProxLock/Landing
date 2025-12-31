@@ -31,7 +31,7 @@ function Pricing() {
                     <div className="pricing-card featured">
                         <h3 className="plan-name">Plus</h3>
                         <div className="plan-price">
-                            <span className="currency">$</span>10
+                            <span className="currency">$</span>9.99
                             <span className="period">/month</span>
                         </div>
                         <p className="plan-billing">Only billed monthly</p>
@@ -43,7 +43,7 @@ function Pricing() {
                     <div className="pricing-card">
                         <h3 className="plan-name">Pro</h3>
                         <div className="plan-price">
-                            <span className="currency">$</span>20
+                            <span className="currency">$</span>19.99
                             <span className="period">/month</span>
                         </div>
                         <p className="plan-billing">Only billed monthly</p>
