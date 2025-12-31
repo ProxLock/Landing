@@ -45,6 +45,19 @@ function Pricing() {
                         <p className="plan-description">Get up to 25,000 proxy requests each month.</p>
                         <a href="https://app.proxlock.dev" className="btn btn-secondary plan-btn">Get Started</a>
                     </div>
+
+                    {/* Enterprise Plan */}
+                    <div className="pricing-card full-width">
+                        <div className="plan-header-group">
+                            <h3 className="plan-name">Enterprise</h3>
+                            <div className="plan-price">
+                                Custom
+                            </div>
+                        </div>
+                        <p className="plan-billing">Contact us for details</p>
+                        <p className="plan-description">Need higher limits? Get in touch for a custom plan.</p>
+                        <a href="mailto:morris@proxlock.dev" className="btn btn-secondary plan-btn">Contact Us</a>
+                    </div>
                 </div>
             </div>
 

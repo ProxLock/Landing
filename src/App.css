@@ -1015,6 +1015,53 @@ html {
   .pricing-grid {
     grid-template-columns: repeat(3, 1fr);
   }
+
+  .pricing-card.full-width {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
+    padding: 1.5rem 3rem;
+    gap: 3rem;
+  }
+
+  .pricing-card.full-width .plan-header-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .pricing-card.full-width .plan-name {
+    margin-bottom: 0.25rem;
+    font-size: 1.5rem;
+    color: var(--text-primary);
+  }
+
+  .pricing-card.full-width .plan-price {
+    margin-bottom: 0;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+  }
+
+  .pricing-card.full-width .plan-billing {
+    display: none;
+  }
+
+  .pricing-card.full-width .plan-description {
+    margin-bottom: 0;
+    max-width: 500px;
+  }
+
+  .pricing-card.full-width .plan-btn {
+    width: auto;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+    white-space: nowrap;
+    margin-left: auto;
+  }
 }
 
 .pricing-card {
