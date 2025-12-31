@@ -10,6 +10,11 @@ function Pricing() {
                 <h1 className="section-title pricing-title">Simple Pricing</h1>
                 <p className="pricing-subtitle">Choose the plan that fits your needs.</p>
 
+                <div className="beta-notice">
+                    <span className="beta-badge">Beta Pricing</span>
+                    Subscribe now to lock in these rates forever.
+                </div>
+
                 <div className="pricing-grid">
                     {/* Free Plan */}
                     <div className="pricing-card">
