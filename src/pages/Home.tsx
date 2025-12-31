@@ -99,9 +99,9 @@ function Home() {
 
             <section id="open-source" className="open-source">
                 <div className="container">
-                    <h2 className="section-title">Open Source</h2>
+                    <h2 className="section-title">Source Available</h2>
                     <p className="open-source-description">
-                        ProxLock is built with transparency in mind. Our entire codebase is open source and available on GitHub.
+                        ProxLock is built with transparency in mind. Our entire codebase is source available and published on GitHub.
                         We believe in security through openness, not obscurity.
                     </p>
 
