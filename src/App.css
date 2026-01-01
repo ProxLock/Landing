@@ -8,12 +8,14 @@
   transition: background 0.3s ease;
 }
 
+/* Sticky Header z-index must be higher than mobile menu for toggle to be visible */
 .sticky-header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1000;
+  z-index: 2000;
+  /* Increased from 1000 */
   padding: 1rem 2rem;
   transition: background 0.3s ease, backdrop-filter 0.3s ease, border-bottom 0.3s ease;
   pointer-events: none;
@@ -21,6 +23,33 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+/* ... existing code ... */
+
+/* Mobile Menu Overlay */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  /* Use a solid background color with high opacity */
+  background: #ffffff;
+  /* Fallback */
+  z-index: 1500;
+  /* Increased from 1000, but lower than sticky-header (2000) */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 2rem;
+  /* Ensure content isn't hidden behind header */
+  padding-top: 80px;
 }
 
 .sticky-header.scrolled {
@@ -49,21 +78,179 @@
   transform: translateY(0);
 }
 
-.sticky-waitlist-btn {
+.header-actions {
   margin-left: auto;
-  opacity: 0 !important;
-  transform: translateY(10px) !important;
-  pointer-events: none;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  /* Reduced from 2rem */
+  pointer-events: auto;
+  /* Allow clicking links even if header is pointer-events: none */
+}
+
+/* Capsule background for nav links */
+.nav-pill {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  /* Use explicit rgba for a glassy look instead of var(--bg-card) which might be flat/gradient */
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 100px;
+  padding: 0.5rem 1.5rem;
   transition: all 0.3s ease;
-  padding: 0.35rem 1.5rem !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* When header is scrolled (solid background), make pill transparent */
+.sticky-header.scrolled .nav-pill {
+  background: transparent;
+  border-color: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  padding: 0;
+  box-shadow: none;
+}
+
+.nav-link {
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  transition: color 0.2s ease;
+  /* Always visible */
+  opacity: 1;
+  transform: none;
+}
+
+/* Remove the scroll-based fade in for nav-link since it's now always visible */
+/* .sticky-header.scrolled .nav-link { ... } removed */
+
+.nav-link:hover {
+  color: var(--text-primary);
+}
+
+.sticky-waitlist-btn {
+  /* Collapsed state by default */
+  opacity: 0;
+  transform: none;
+  /* No vertical movement */
+  pointer-events: none;
+  transition: all 0.4s ease;
+  /* Standard smooth fade */
+
+  max-width: 0;
+  padding: 0 !important;
+  margin: 0;
+  overflow: hidden;
+  white-space: nowrap;
+
   font-size: 0.9rem;
   animation: none !important;
+  border: 0 solid transparent;
+  /* Ensure border doesn't take space */
 }
 
 .sticky-waitlist-btn.visible {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
+  /* Visible state */
+  opacity: 1;
+  transform: translateY(0);
   pointer-events: auto;
+
+  max-width: 200px;
+  /* Sufficient max-width to fit content */
+  padding: 0.35rem 1.5rem !important;
+  margin-left: 0.25rem;
+  /* Reduced from 0.5rem */
+  /* Add a bit of gap if needed, or rely on flex gap */
+}
+
+/* Mobile Toggle Button */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  color: var(--text-primary);
+  z-index: 2000;
+  /* Above mobile menu */
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-toggle svg {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+/* On mobile, hide desktop nav and show hamburger */
+@media (max-width: 768px) {
+
+  .nav-pill,
+  .sticky-waitlist-btn {
+    display: none !important;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+}
+
+/* Mobile Menu Overlay */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: var(--bg-primary);
+  /* Should match theme background */
+  /* Add glass effect if preferred, but solid/semi-transparent prevents content bleed */
+  background: rgba(var(--bg-primary), 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 2rem;
+}
+
+.mobile-menu.open {
+  transform: translateX(0);
+}
+
+.mobile-nav-link {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.mobile-nav-link:hover {
+  color: var(--icon-toggle);
+}
+
+.mobile-menu .btn {
+  font-size: 1.2rem;
+  padding: 0.75rem 2rem;
+  width: 100%;
+  max-width: 300px;
+  text-align: center;
 }
 
 
@@ -607,6 +794,8 @@
   text-align: left;
   backdrop-filter: blur(10px);
   transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  position: relative;
+  z-index: 1;
 }
 
 .footer-text {
@@ -614,6 +803,22 @@
   font-size: 0.9375rem;
   letter-spacing: 0.02em;
   text-align: left;
+}
+
+.footer-social {
+  display: flex;
+  justify-content: flex-start;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.social-icon {
+  color: var(--text-tertiary);
+}
+
+.social-icon svg {
+  width: 24px;
+  height: 24px;
 }
 
 /* Responsive Design */
@@ -717,4 +922,282 @@
 /* Smooth Scrolling */
 html {
   scroll-behavior: smooth;
+}
+
+/* Pricing Page Styles */
+.pricing-page {
+  min-height: 100vh;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  padding-top: 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Background Effects aligned with Hero */
+.pricing-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(circle at 20% 50%, var(--gradient-glow-subtle) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, var(--gradient-glow-minimal) 0%, transparent 50%);
+  opacity: 1;
+  z-index: 0;
+  pointer-events: none;
+}
+
+[data-theme='light'] .pricing-page::before {
+  background:
+    radial-gradient(circle at 20% 50%, var(--gradient-glow-subtle) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, var(--gradient-glow-minimal) 0%, transparent 50%),
+    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+[data-theme='dark'] .pricing-page::before {
+  background:
+    radial-gradient(circle at 20% 50%, var(--gradient-glow-subtle) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, var(--gradient-glow-minimal) 0%, transparent 50%),
+    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.pricing-page::after {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, var(--gradient-glow) 0%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(80px);
+  animation: float 20s ease-in-out infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.pricing-container {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.pricing-title {
+  margin-bottom: 0.5rem;
+  background: var(--text-hero-title);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 700;
+}
+
+.pricing-subtitle {
+  color: var(--text-secondary);
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.beta-notice {
+  background: var(--gradient-glow-subtle);
+  border: 1px solid var(--gradient-glow);
+  color: var(--text-primary);
+  padding: 0.75rem 1.5rem;
+  border-radius: 100px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 3rem;
+  font-size: 0.95rem;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.beta-badge {
+  background: var(--gradient-accent);
+  color: white;
+  font-weight: 700;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 100px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .pricing-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .pricing-card.full-width {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
+    padding: 1.5rem 3rem;
+    gap: 3rem;
+  }
+
+  .pricing-card.full-width .plan-header-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .pricing-card.full-width .plan-name {
+    margin-bottom: 0.25rem;
+    font-size: 1.5rem;
+    color: var(--text-primary);
+  }
+
+  .pricing-card.full-width .plan-price {
+    margin-bottom: 0;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+  }
+
+  .pricing-card.full-width .plan-billing {
+    display: none;
+  }
+
+  .pricing-card.full-width .plan-description {
+    margin-bottom: 0;
+    max-width: 500px;
+  }
+
+  .pricing-card.full-width .plan-btn {
+    width: auto;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+    white-space: nowrap;
+    margin-left: auto;
+  }
+}
+
+.pricing-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: 12px;
+  padding: 2.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+}
+
+.pricing-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px var(--shadow-primary);
+  border-color: var(--border-toggle-hover);
+  /* Use a lighter glass effect instead of var(--bg-toggle) which is too dark in dark mode */
+  background: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='light'] .pricing-card:hover {
+  background: var(--bg-toggle);
+}
+
+.pricing-card.featured {
+  background: var(--bg-card);
+  border-color: var(--border-toggle-hover);
+  transform: scale(1.05);
+  z-index: 1;
+  box-shadow: 0 8px 32px var(--shadow-primary);
+}
+
+.pricing-card.featured:hover {
+  transform: scale(1.05) translateY(-5px);
+}
+
+.plan-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.plan-price {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 4px;
+}
+
+.pricing-card.featured .plan-price {
+  background: var(--text-hero-title);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.currency {
+  font-size: 1.5rem;
+  vertical-align: top;
+  color: var(--text-primary);
+  -webkit-text-fill-color: initial;
+}
+
+.pricing-card.featured .currency {
+  -webkit-text-fill-color: transparent;
+}
+
+
+.period {
+  font-size: 1rem;
+  color: var(--text-tertiary);
+  font-weight: 400;
+  -webkit-text-fill-color: var(--text-tertiary);
+}
+
+.plan-billing {
+  color: var(--text-tertiary);
+  font-weight: 500;
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+}
+
+.plan-description {
+  color: var(--text-secondary);
+  margin-bottom: 2.5rem;
+  flex-grow: 1;
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+.plan-btn {
+  width: 100%;
+  display: block;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 12px 0;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+/* Ensure sticky header links in Pricing page behave like text */
+.logo-link {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
 }
