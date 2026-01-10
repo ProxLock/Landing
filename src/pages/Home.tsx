@@ -194,7 +194,7 @@ function Home() {
                                 <span className="platform-subtitle platform-sdk-coming-soon">SDK Coming Soon</span>
                             </div>
                         </div>
-                        <div className="platform-card">
+                        <div className="platform-card platform-card-active">
                             <div className="platform-icon">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="48" height="48">
                                     <circle cx="12" cy="12" r="2" fill="currentColor" stroke="none" />
