@@ -172,9 +172,10 @@ function Home() {
                                     </span>
                                 </div>
                                 <span className="platform-subtitle">January 2026</span>
+                                <span className="platform-subtitle platform-sdk-coming-soon">SDK Coming Soon</span>
                             </div>
                         </div>
-                        <div className="platform-card">
+                        <div className="platform-card platform-card-active">
                             <div className="platform-icon">
                                 <svg viewBox="0 0 24 24" fill="currentColor" width="48" height="48">
                                     <path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85-.29-.15-.65-.06-.83.22l-1.88 3.24c-1.39-.59-2.94-.92-4.47-.92s-3.08.33-4.47.92L5.65 5.67c-.19-.29-.55-.38-.84-.22-.3.16-.42.54-.26.85L6.4 9.48C3.3 11.25 1.28 14.44 1 18h22c-.28-3.56-2.3-6.75-5.4-8.52zM7 15.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25zm10 0c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z" />
@@ -183,6 +184,28 @@ function Home() {
                             <div className="platform-info">
                                 <div className="platform-name-row">
                                     <span className="platform-name">Android</span>
+                                    <span className="platform-check">
+                                        <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
+                                        </svg>
+                                    </span>
+                                </div>
+                                <span className="platform-subtitle">January 2026</span>
+                                <span className="platform-subtitle platform-sdk-coming-soon">SDK Coming Soon</span>
+                            </div>
+                        </div>
+                        <div className="platform-card">
+                            <div className="platform-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="48" height="48">
+                                    <circle cx="12" cy="12" r="2" fill="currentColor" stroke="none" />
+                                    <ellipse cx="12" cy="12" rx="10" ry="4.5" />
+                                    <ellipse cx="12" cy="12" rx="10" ry="4.5" transform="rotate(60 12 12)" />
+                                    <ellipse cx="12" cy="12" rx="10" ry="4.5" transform="rotate(120 12 12)" />
+                                </svg>
+                            </div>
+                            <div className="platform-info">
+                                <div className="platform-name-row">
+                                    <span className="platform-name">React Native</span>
                                 </div>
                                 <span className="platform-subtitle platform-coming-soon">Coming Soon</span>
                             </div>
