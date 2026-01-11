@@ -1105,29 +1105,29 @@ html {
 }
 
 .beta-notice {
-  background: var(--gradient-glow-subtle);
-  border: 1px solid var(--gradient-glow);
-  color: var(--text-primary);
-  padding: 0.75rem 1.5rem;
-  border-radius: 100px;
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
-  margin-bottom: 3rem;
+  padding: 0.75rem 1.5rem;
+  margin-bottom: 2rem;
+  background: rgba(255, 145, 0, 0.1);
+  border: 1px solid rgba(255, 145, 0, 0.2);
+  border-radius: 100px;
+  color: var(--text-secondary);
   font-size: 0.95rem;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  line-height: 1.5;
+  text-align: center;
 }
 
 .beta-badge {
-  background: var(--gradient-accent);
-  color: white;
-  font-weight: 700;
-  font-size: 0.75rem;
+  display: block;
   padding: 0.25rem 0.75rem;
+  background: linear-gradient(135deg, #ffaa40 0%, #ff8c00 100%);
   border-radius: 100px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.5;
 }
 
 .pricing-grid {
