@@ -206,8 +206,13 @@ function Home() {
                             <div className="platform-info">
                                 <div className="platform-name-row">
                                     <span className="platform-name">React Native</span>
+                                    <span className="platform-check">
+                                        <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
+                                        </svg>
+                                    </span>
                                 </div>
-                                <span className="platform-subtitle platform-coming-soon">Coming Soon</span>
+                                <span className="platform-subtitle">January 2026</span>
                             </div>
                         </div>
                     </div>
