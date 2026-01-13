@@ -37,7 +37,7 @@ function Pricing() {
                         </div>
                         <p className="plan-billing">Only billed monthly</p>
                         <p className="plan-description">Get up to 10,000 proxy requests each month.</p>
-                        <a href="https://app.proxlock.dev" className="btn btn-primary plan-btn">Get Started</a>
+                        <a href="https://app.proxlock.dev" className="btn btn-primary plan-btn">Start 7 Day Free Trial</a>
                     </div>
 
                     {/* Pro Plan */}
@@ -49,7 +49,7 @@ function Pricing() {
                         </div>
                         <p className="plan-billing">Only billed monthly</p>
                         <p className="plan-description">Get up to 25,000 proxy requests each month.</p>
-                        <a href="https://app.proxlock.dev" className="btn btn-secondary plan-btn">Get Started</a>
+                        <a href="https://app.proxlock.dev" className="btn btn-secondary plan-btn">Start 7 Day Free Trial</a>
                     </div>
 
                     {/* Enterprise Plan */}
