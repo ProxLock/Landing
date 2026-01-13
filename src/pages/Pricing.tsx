@@ -11,11 +11,9 @@ function Pricing() {
                 <h1 className="section-title pricing-title">Simple Pricing</h1>
                 <p className="pricing-subtitle">Choose the plan that fits your needs.</p>
 
-                <div className="beta-notice-wrapper">
-                    <div className="beta-notice">
-                        <span className="beta-badge">Special Pricing</span>
-                        <span>for the <strong>ESI x Korea Investments AI Agent, MCP & Sales Hackathon</strong>. Get a 90-day free trial for new Plus subscribers</span>
-                    </div>
+                <div className="beta-notice">
+                    <span className="beta-badge">Beta Pricing</span>
+                    Subscribe now to lock in these rates forever.
                 </div>
 
                 <div className="pricing-grid">
