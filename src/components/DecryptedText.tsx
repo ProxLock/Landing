@@ -42,7 +42,7 @@ export default function DecryptedText({
       const targetLength = text.length;
 
       // Update display text with scrambling effect
-      const scrambleInterval = setInterval(() => {
+      intervalRef.current = setInterval(() => {
         if (currentIndex < targetLength) {
           // Build the display text: revealed characters + random chars for remaining
           const revealed = text.slice(0, currentIndex + 1);
@@ -64,8 +64,6 @@ export default function DecryptedText({
           }
         }
       }, speed);
-
-      intervalRef.current = scrambleInterval;
     }, delay);
 
     return () => {
