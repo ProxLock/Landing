@@ -1,10 +1,10 @@
-import '../App.css';
 import DecryptedText from '../components/DecryptedText';
 import { SignUp } from '@clerk/clerk-react';
 import logo from '../assets/logo.svg';
 import { useState, useRef, useEffect } from 'react';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
+import { URLS } from '../constants';
 
 function Home() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -65,8 +65,8 @@ function Home() {
                         for your applications, ensuring your sensitive credentials stay safe.
                     </p>
                     <div className="hero-actions">
-                        <a href="https://docs.proxlock.dev" className="btn btn-secondary"><span>Docs</span></a>
-                        <a href="https://app.proxlock.dev" className="btn btn-primary" ref={waitlistBtnRef}><span>Get Started</span></a>
+                        <a href={URLS.DOCS} className="btn btn-secondary"><span>Docs</span></a>
+                        <a href={URLS.APP} className="btn btn-primary" ref={waitlistBtnRef}><span>Get Started</span></a>
                     </div>
                 </div>
             </header>
@@ -107,19 +107,19 @@ function Home() {
                     </p>
 
                     <div className="open-source-grid">
-                        <a href="https://github.com/ProxLock/Backend" target="_blank" rel="noopener noreferrer" className="repo-card">
+                        <a href={URLS.GITHUB_BACKEND} target="_blank" rel="noopener noreferrer" className="repo-card">
                             <h3 className="repo-title">Backend</h3>
                             <p className="repo-description">The core API proxy and key management infrastructure.</p>
                             <div className="repo-link">View Repository →</div>
                         </a>
 
-                        <a href="https://github.com/ProxLock/Frontend" target="_blank" rel="noopener noreferrer" className="repo-card">
+                        <a href={URLS.GITHUB_FRONTEND} target="_blank" rel="noopener noreferrer" className="repo-card">
                             <h3 className="repo-title">Frontend</h3>
                             <p className="repo-description">The dashboard for managing your API keys and projects.</p>
                             <div className="repo-link">View Repository →</div>
                         </a>
 
-                        <a href="https://github.com/ProxLock/Landing" target="_blank" rel="noopener noreferrer" className="repo-card">
+                        <a href={URLS.GITHUB_LANDING} target="_blank" rel="noopener noreferrer" className="repo-card">
                             <h3 className="repo-title">Landing Page</h3>
                             <p className="repo-description">This website! See how we present ProxLock to the world.</p>
                             <div className="repo-link">View Repository →</div>
@@ -127,7 +127,7 @@ function Home() {
                     </div>
 
                     <div className="open-source-actions">
-                        <a href="https://github.com/proxlock" target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
+                        <a href={URLS.GITHUB} target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
                             View Organization
                         </a>
                     </div>

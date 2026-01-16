@@ -1,6 +1,6 @@
-import '../App.css';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
+import { URLS } from '../constants';
 
 function Pricing() {
     return (
@@ -25,7 +25,7 @@ function Pricing() {
                         </div>
                         <p className="plan-billing">Always free</p>
                         <p className="plan-description">Get up to 3,000 proxy requests each month.</p>
-                        <a href="https://app.proxlock.dev" className="btn btn-secondary plan-btn">Get Started</a>
+                        <a href={URLS.APP} className="btn btn-secondary plan-btn">Get Started</a>
                     </div>
 
                     {/* Plus Plan */}
@@ -37,7 +37,7 @@ function Pricing() {
                         </div>
                         <p className="plan-billing">Only billed monthly</p>
                         <p className="plan-description">Get up to 10,000 proxy requests each month.</p>
-                        <a href="https://app.proxlock.dev" className="btn btn-primary plan-btn">Start 7 Day Free Trial</a>
+                        <a href={URLS.APP} className="btn btn-primary plan-btn">Start 7 Day Free Trial</a>
                     </div>
 
                     {/* Pro Plan */}
@@ -49,7 +49,7 @@ function Pricing() {
                         </div>
                         <p className="plan-billing">Only billed monthly</p>
                         <p className="plan-description">Get up to 25,000 proxy requests each month.</p>
-                        <a href="https://app.proxlock.dev" className="btn btn-secondary plan-btn">Start 7 Day Free Trial</a>
+                        <a href={URLS.APP} className="btn btn-secondary plan-btn">Start 7 Day Free Trial</a>
                     </div>
 
                     {/* Enterprise Plan */}
@@ -62,7 +62,7 @@ function Pricing() {
                         </div>
                         <p className="plan-billing">Contact us for details</p>
                         <p className="plan-description">Need higher limits? Get in touch for a custom plan.</p>
-                        <a href="mailto:morris@proxlock.dev" className="btn btn-secondary plan-btn">Contact Us</a>
+                        <a href={URLS.EMAIL_CONTACT} className="btn btn-secondary plan-btn">Contact Us</a>
                     </div>
                 </div>
             </div>

@@ -5,6 +5,7 @@ import { ClerkProvider } from '@clerk/clerk-react';
 import { ThemeProvider } from './contexts/ThemeContext';
 import App from './App';
 import './index.css';
+import './App.css';
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
