@@ -7,13 +7,38 @@ interface DecryptedTextProps {
   delay?: number;
 }
 
-// Move constants outside component to avoid recreation
 // Use only alphanumeric chars for consistent widths in monospace fonts
 const CHARSET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 const CHARSET_LENGTH = CHARSET.length;
 
-// Pre-compute random char function outside component
 const getRandomChar = () => CHARSET[(Math.random() * CHARSET_LENGTH) | 0];
+
+// Split text into words (preserving spaces as separate tokens)
+function tokenizeText(text: string): { word: string; startIndex: number }[] {
+  const tokens: { word: string; startIndex: number }[] = [];
+  let currentWord = '';
+  let wordStart = 0;
+
+  for (let i = 0; i < text.length; i++) {
+    const char = text[i];
+    if (char === ' ') {
+      if (currentWord) {
+        tokens.push({ word: currentWord, startIndex: wordStart });
+        currentWord = '';
+      }
+      tokens.push({ word: ' ', startIndex: i });
+    } else {
+      if (!currentWord) {
+        wordStart = i;
+      }
+      currentWord += char;
+    }
+  }
+  if (currentWord) {
+    tokens.push({ word: currentWord, startIndex: wordStart });
+  }
+  return tokens;
+}
 
 export default function DecryptedText({
   text,
@@ -25,14 +50,13 @@ export default function DecryptedText({
   const [scrambleKey, setScrambleKey] = useState(0);
   const rafRef = useRef<number | null>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const lastUpdateRef = useRef<number>(-Infinity); // Start with -Infinity so first frame triggers immediately
+  const lastUpdateRef = useRef<number>(-Infinity);
   const currentIndexRef = useRef(0);
 
-  // Memoize character array to avoid splitting on every render
-  const characters = useMemo(() => text.split(''), [text]);
+  // Tokenize text into words for word-based wrapping
+  const tokens = useMemo(() => tokenizeText(text), [text]);
 
   useEffect(() => {
-    // Cleanup function
     const cleanup = () => {
       if (rafRef.current !== null) {
         cancelAnimationFrame(rafRef.current);
@@ -46,14 +70,13 @@ export default function DecryptedText({
 
     cleanup();
     setRevealedCount(0);
-    setScrambleKey(prev => prev + 1); // Trigger initial scramble render
+    setScrambleKey(prev => prev + 1);
     currentIndexRef.current = 0;
-    lastUpdateRef.current = -Infinity; // Reset to -Infinity for immediate first frame
+    lastUpdateRef.current = -Infinity;
 
     const targetLength = text.length;
     if (targetLength === 0) return cleanup;
 
-    // Animation loop using requestAnimationFrame with throttling
     const animate = (timestamp: number) => {
       if (timestamp - lastUpdateRef.current >= speed) {
         lastUpdateRef.current = timestamp;
@@ -61,9 +84,8 @@ export default function DecryptedText({
         if (currentIndexRef.current < targetLength) {
           currentIndexRef.current++;
           setRevealedCount(currentIndexRef.current);
-          setScrambleKey(k => k + 1); // Trigger re-render for scramble effect
+          setScrambleKey(k => k + 1);
         } else {
-          // Animation complete
           return;
         }
       }
@@ -73,7 +95,6 @@ export default function DecryptedText({
       }
     };
 
-    // Start animation after delay (if delay is 0, still use setTimeout to batch with React rendering)
     timeoutRef.current = setTimeout(() => {
       rafRef.current = requestAnimationFrame(animate);
     }, delay);
@@ -81,33 +102,41 @@ export default function DecryptedText({
     return cleanup;
   }, [text, speed, delay]);
 
-  // Memoize the rendered spans to avoid recreating on every scramble
+  // Render words with nowrap to prevent mid-word breaks
   const renderedContent = useMemo(() => {
-    return characters.map((char, index) => {
-      const isRevealed = index < revealedCount;
-      // Preserve spaces exactly, generate random for other unrevealed chars
-      const displayChar = char === ' ' ? ' ' : (isRevealed ? char : getRandomChar());
-      // Use inline-block to prevent layout shifts
-      const style: React.CSSProperties = {
-        display: 'inline-block',
-        // Use ch unit for consistent monospace character width
-        minWidth: char === ' ' ? '0.25em' : undefined,
-      };
+    return tokens.map((token, tokenIndex) => {
+      const { word, startIndex } = token;
+
+      // Space tokens - just render a space
+      if (word === ' ') {
+        return <span key={tokenIndex}> </span>;
+      }
+
+      // Word tokens - wrap in nowrap span
+      const chars = word.split('').map((char, charIndex) => {
+        const globalIndex = startIndex + charIndex;
+        const isRevealed = globalIndex < revealedCount;
+        const displayChar = isRevealed ? char : getRandomChar();
+
+        return (
+          <span
+            key={charIndex}
+            className={isRevealed ? 'decrypted-char' : 'encrypting-char'}
+            style={{ display: 'inline-block' }}
+          >
+            {displayChar}
+          </span>
+        );
+      });
 
       return (
-        <span
-          key={index}
-          className={isRevealed || char === ' ' ? 'decrypted-char' : 'encrypting-char'}
-          style={style}
-        >
-          {displayChar}
+        <span key={tokenIndex} style={{ whiteSpace: 'nowrap' }}>
+          {chars}
         </span>
       );
     });
-    // scrambleKey forces re-render for the scramble effect on unrevealed chars
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [characters, revealedCount, scrambleKey]);
+  }, [tokens, revealedCount, scrambleKey]);
 
   return <span className={className}>{renderedContent}</span>;
 }
-
