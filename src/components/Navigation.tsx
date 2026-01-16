@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import logo from '../assets/logo.svg';
-import '../App.css';
+import { URLS } from '../constants';
 
 interface NavigationProps {
     isScrolled?: boolean;
@@ -22,11 +22,11 @@ export default function Navigation({ isScrolled = false, showWaitlist = true }: 
                 <div className="header-actions">
                     <div className="nav-pill">
                         <a href="/pricing" className="nav-link">Pricing</a>
-                        <a href="https://docs.proxlock.dev" className="nav-link">Docs</a>
-                        <a href="https://discord.gg/BZ4Uax5nnU" className="nav-link" target="_blank" rel="noopener noreferrer">Discord</a>
+                        <a href={URLS.DOCS} className="nav-link">Docs</a>
+                        <a href={URLS.DISCORD} className="nav-link" target="_blank" rel="noopener noreferrer">Discord</a>
                     </div>
                     <a
-                        href="https://app.proxlock.dev"
+                        href={URLS.APP}
                         className={`btn btn-primary sticky-waitlist-btn ${showWaitlist ? 'visible' : ''}`}
                     >
                         <span>Get Started</span>
@@ -48,9 +48,9 @@ export default function Navigation({ isScrolled = false, showWaitlist = true }: 
             </div>
             <div className={`mobile-menu ${isMenuOpen ? 'open' : ''}`}>
                 <a href="/pricing" className="mobile-nav-link" onClick={() => setIsMenuOpen(false)}>Pricing</a>
-                <a href="https://docs.proxlock.dev" className="mobile-nav-link" onClick={() => setIsMenuOpen(false)}>Docs</a>
-                <a href="https://discord.gg/BZ4Uax5nnU" className="mobile-nav-link" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>Discord</a>
-                <a href="https://app.proxlock.dev" className="btn btn-primary" onClick={() => setIsMenuOpen(false)}>Get Started</a>
+                <a href={URLS.DOCS} className="mobile-nav-link" onClick={() => setIsMenuOpen(false)}>Docs</a>
+                <a href={URLS.DISCORD} className="mobile-nav-link" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>Discord</a>
+                <a href={URLS.APP} className="btn btn-primary" onClick={() => setIsMenuOpen(false)}>Get Started</a>
             </div>
         </>
     );

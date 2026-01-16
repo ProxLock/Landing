@@ -1,63 +1,36 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import type { ReactNode } from 'react';
-
-type Theme = 'light' | 'dark';
-
-interface ThemeContextType {
-  theme: Theme;
-}
-
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
-
-export const useTheme = () => {
-  const context = useContext(ThemeContext);
-  if (!context) {
-    throw new Error('useTheme must be used within a ThemeProvider');
-  }
-  return context;
-};
 
 interface ThemeProviderProps {
   children: ReactNode;
 }
 
-export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
-  const [theme, setTheme] = useState<Theme>(() => {
-    // Detect system preference on initial load
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      return 'dark';
-    }
-    return 'light';
-  });
-
+export function ThemeProvider({ children }: ThemeProviderProps) {
   useEffect(() => {
-    // Apply theme to document root
-    document.documentElement.setAttribute('data-theme', theme);
-  }, [theme]);
-
-  useEffect(() => {
-    // Listen for system preference changes
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    
-    const updateTheme = () => {
-      setTheme(mediaQuery.matches ? 'dark' : 'light');
+    // Set initial theme based on system preference
+    const setTheme = (isDark: boolean) => {
+      document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
     };
+
+    // Apply initial theme
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    setTheme(mediaQuery.matches);
+
+    // Listen for system preference changes
+    const handleChange = (e: MediaQueryListEvent) => setTheme(e.matches);
 
     // Check if browser supports addEventListener for MediaQueryList
     if (mediaQuery.addEventListener) {
-      mediaQuery.addEventListener('change', updateTheme);
-      return () => mediaQuery.removeEventListener('change', updateTheme);
+      mediaQuery.addEventListener('change', handleChange);
+      return () => mediaQuery.removeEventListener('change', handleChange);
     } else {
-      // Fallback for older browsers (addListener passes MediaQueryList, not event)
-      mediaQuery.addListener(updateTheme);
-      return () => mediaQuery.removeListener(updateTheme);
+      // Fallback for older browsers
+      const legacyHandler = () => setTheme(mediaQuery.matches);
+      mediaQuery.addListener(legacyHandler);
+      return () => mediaQuery.removeListener(legacyHandler);
     }
   }, []);
 
-  return (
-    <ThemeContext.Provider value={{ theme }}>
-      {children}
-    </ThemeContext.Provider>
-  );
-};
+  return <>{children}</>;
+}
 
