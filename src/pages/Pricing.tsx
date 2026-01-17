@@ -78,7 +78,7 @@ function Pricing() {
                         </div>
                         <p className="plan-billing">Only billed monthly</p>
                         <p className="plan-description">{plusDescription}</p>
-                        <a href={URLS.APP} className="btn btn-primary plan-btn">Start {plusFreeTrialDays} Day Special Free Trial</a>
+                        <a href={`${URLS.APP}/pricing`} className="btn btn-primary plan-btn">Start {plusFreeTrialDays} Day Special Free Trial</a>
                     </div>
 
                     {/* Pro Plan */}
@@ -90,7 +90,7 @@ function Pricing() {
                         </div>
                         <p className="plan-billing">Only billed monthly</p>
                         <p className="plan-description">{proDescription}</p>
-                        <a href={URLS.APP} className="btn btn-secondary plan-btn">Start {proFreeTrialDays} Day Free Trial</a>
+                        <a href={`${URLS.APP}/pricing`} className="btn btn-secondary plan-btn">Start {proFreeTrialDays} Day Free Trial</a>
                     </div>
 
                     {/* Enterprise Plan */}
