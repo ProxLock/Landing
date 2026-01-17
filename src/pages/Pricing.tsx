@@ -12,7 +12,7 @@ const FALLBACK_PLANS = {
     plus: {
         name: 'Plus',
         price: '9.99',
-        description: 'Get up to 10,000 proxy requests each month and 1 user access key.',
+        description: '111Get up to 10,000 proxy requests each month and 1 user access key.',
         freeTrialDays: 30,
     },
     pro: {
