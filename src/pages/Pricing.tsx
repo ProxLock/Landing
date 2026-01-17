@@ -24,13 +24,7 @@ const FALLBACK_PLANS = {
 };
 
 function Pricing() {
-    const { data: plans, isLoading, error } = usePlans({ for: 'user' });
-
-    // Debug: Log what Clerk returns
-    console.log('Clerk usePlans data:', { plans, isLoading, error });
-    if (plans) {
-        plans.forEach(p => console.log('Plan:', { id: p.id, slug: p.slug, name: p.name }));
-    }
+    const { data: plans, isLoading } = usePlans({ for: 'user' });
 
     // Find Plus and Pro plans from Clerk data (check both id and slug)
     const plusPlan = plans?.find(plan => plan.id === PLUS_PLAN_ID || plan.slug === PLUS_PLAN_ID);
@@ -112,6 +106,137 @@ function Pricing() {
                         <a href={URLS.EMAIL_CONTACT} className="btn btn-secondary plan-btn">Contact Us</a>
                     </div>
                 </div>
+
+                {/* Features Comparison Table */}
+                {(plusPlan?.features?.length || proPlan?.features?.length) && (
+                    <div className="features-table-section">
+                        <h2 className="features-table-title">Compare Features</h2>
+                        <div className="features-table-wrapper">
+                            <table className="features-table">
+                                <thead>
+                                    <tr>
+                                        <th>Feature</th>
+                                        <th>Free</th>
+                                        <th className="featured-column">Plus</th>
+                                        <th>Pro</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {/* Collect all unique features from Plus and Pro plans */}
+                                    {(() => {
+                                        // Pattern matchers for consolidated rows
+                                        const requestsPattern = /requests?/i;
+                                        const accessKeysPattern = /access\s*key/i;
+
+                                        // Helper to extract numeric value from feature name
+                                        const extractValue = (name: string): string => {
+                                            // Try to extract number with commas (e.g., "10,000")
+                                            const numMatch = name.match(/[\d,]+/);
+                                            if (numMatch) return numMatch[0];
+                                            // Check for "unlimited"
+                                            if (/unlimited/i.test(name)) return 'Unlimited';
+                                            return name;
+                                        };
+
+                                        // Find consolidated features
+                                        const plusRequestsFeature = plusPlan?.features?.find(f => requestsPattern.test(f.name));
+                                        const proRequestsFeature = proPlan?.features?.find(f => requestsPattern.test(f.name));
+                                        const plusAccessKeysFeature = plusPlan?.features?.find(f => accessKeysPattern.test(f.name));
+                                        const proAccessKeysFeature = proPlan?.features?.find(f => accessKeysPattern.test(f.name));
+
+                                        // Build consolidated rows
+                                        type FeatureRow = { id: string; label: string; freeValue: string; plusValue: string; proValue: string; isConsolidated: boolean };
+                                        const rows: FeatureRow[] = [];
+
+                                        // Monthly Requests row
+                                        if (plusRequestsFeature || proRequestsFeature) {
+                                            rows.push({
+                                                id: 'monthly-requests',
+                                                label: 'Monthly Requests',
+                                                freeValue: '3,000',
+                                                plusValue: plusRequestsFeature ? extractValue(plusRequestsFeature.name) : '—',
+                                                proValue: proRequestsFeature ? extractValue(proRequestsFeature.name) : '—',
+                                                isConsolidated: true,
+                                            });
+                                        }
+
+                                        // Access Keys row
+                                        if (plusAccessKeysFeature || proAccessKeysFeature) {
+                                            rows.push({
+                                                id: 'access-keys',
+                                                label: 'Access Keys',
+                                                freeValue: '—',
+                                                plusValue: plusAccessKeysFeature ? extractValue(plusAccessKeysFeature.name) : '—',
+                                                proValue: proAccessKeysFeature ? extractValue(proAccessKeysFeature.name) : '—',
+                                                isConsolidated: true,
+                                            });
+                                        }
+
+                                        // Add remaining features (not matching consolidated patterns)
+                                        const consolidatedIds = new Set([
+                                            plusRequestsFeature?.id,
+                                            proRequestsFeature?.id,
+                                            plusAccessKeysFeature?.id,
+                                            proAccessKeysFeature?.id,
+                                        ].filter(Boolean));
+
+                                        const otherFeatures = new Map<string, { name: string; inPlus: boolean; inPro: boolean }>();
+
+                                        plusPlan?.features?.forEach(f => {
+                                            if (!consolidatedIds.has(f.id)) {
+                                                otherFeatures.set(f.id, { name: f.name, inPlus: true, inPro: false });
+                                            }
+                                        });
+
+                                        proPlan?.features?.forEach(f => {
+                                            if (!consolidatedIds.has(f.id)) {
+                                                const existing = otherFeatures.get(f.id);
+                                                if (existing) {
+                                                    existing.inPro = true;
+                                                } else {
+                                                    otherFeatures.set(f.id, { name: f.name, inPlus: false, inPro: true });
+                                                }
+                                            }
+                                        });
+
+                                        // Add other features as regular rows
+                                        otherFeatures.forEach((feature, id) => {
+                                            rows.push({
+                                                id,
+                                                label: feature.name,
+                                                freeValue: '—',
+                                                plusValue: feature.inPlus ? '✓' : '—',
+                                                proValue: feature.inPro ? '✓' : '—',
+                                                isConsolidated: false,
+                                            });
+                                        });
+
+                                        return rows.map((row) => (
+                                            <tr key={row.id}>
+                                                <td className="feature-name">{row.label}</td>
+                                                <td className="feature-check">
+                                                    <span className={`${row.isConsolidated ? 'feature-value' : 'check-icon'} ${row.freeValue === '—' ? 'no' : ''}`}>
+                                                        {row.freeValue}
+                                                    </span>
+                                                </td>
+                                                <td className="feature-check featured-column">
+                                                    <span className={`${row.isConsolidated ? 'feature-value' : 'check-icon'} ${row.plusValue === '—' ? 'no' : 'yes'}`}>
+                                                        {row.plusValue}
+                                                    </span>
+                                                </td>
+                                                <td className="feature-check">
+                                                    <span className={`${row.isConsolidated ? 'feature-value' : 'check-icon'} ${row.proValue === '—' ? 'no' : 'yes'}`}>
+                                                        {row.proValue}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        ));
+                                    })()}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                )}
             </div>
 
             <Footer />
