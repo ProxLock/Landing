@@ -1,5 +1,5 @@
 import DecryptedText from '../components/DecryptedText';
-import { SignUp } from '@clerk/clerk-react';
+import { SignUp, SignedIn, SignedOut } from '@clerk/clerk-react';
 import logo from '../assets/logo.svg';
 import { useState, useRef, useEffect } from 'react';
 import Navigation from '../components/Navigation';
@@ -225,9 +225,14 @@ function Home() {
                     <p className="cta-description">
                         Join our beta program and get started today.
                     </p>
-                    <div className="waitlist-container">
-                        <SignUp />
-                    </div>
+                    <SignedOut>
+                        <div className="waitlist-container">
+                            <SignUp />
+                        </div>
+                    </SignedOut>
+                    <SignedIn>
+                        <a href={URLS.APP} className="btn btn-primary" ref={waitlistBtnRef}><span>Get Started</span></a>
+                    </SignedIn>
                 </div>
             </section>
 
