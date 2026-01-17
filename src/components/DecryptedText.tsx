@@ -11,34 +11,40 @@ interface DecryptedTextProps {
 const CHARSET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 const CHARSET_LENGTH = CHARSET.length;
 
+// This needs to be updated if the text wants to be updated.
+// A simple script can generate it, if needed
+const CACHED_WORDS = ["jyHVLnJV2JwBHbZwZ1TmSnMHQVW",
+                      "SdNFVutwPBkT7UaIjNIMGZHYbQp",
+                      "Senjyb90w3HmUJOC1zUTtFOEBin",
+                      "SecaOd8bfwYDLMfbfakn7ThG4et",
+                      "SecuWd1LkwZowJsAK9wQ9SpuYmw",
+                      "SecurdI0Im8pV3qUuAtZlMdnlvE",
+                      "SecureIFcP1gzwcqxN7EaCtJUBi",
+                      "Secure xydproGXf2sL3lIdGTYC",
+                      "Secure A7lY0cciGIw4hToM3jjc",
+                      "Secure APQf3XwCmkWOiEZ5sTJz",
+                      "Secure API4lCXRKoUswwCSY6Ve",
+                      "Secure API LYrcwNt8gLs4tXVN",
+                      "Secure API PTLP5aTNnrpafdi9",
+                      "Secure API Pr8I8aF7WUPK5THu",
+                      "Secure API ProqvuP6j3EWczDQ",
+                      "Secure API ProxTejlqD7CFrKw",
+                      "Secure API ProxyjxT68RyAYYL",
+                      "Secure API Proxy qedGajeNu4",
+                      "Secure API Proxy Mqume5kReM",
+                      "Secure API Proxy MaMYhcdsbi",
+                      "Secure API Proxy Manwxw1niA",
+                      "Secure API Proxy ManaEi4KHo",
+                      "Secure API Proxy Manag2BZFE",
+                      "Secure API Proxy Manageby6v",
+                      "Secure API Proxy ManagemE3S",
+                      "Secure API Proxy ManagemeSK",
+                      "Secure API Proxy Managemenq",
+                      "Secure API Proxy Management"]
+                    
+
 const getRandomChar = () => CHARSET[(Math.random() * CHARSET_LENGTH) | 0];
 
-// Split text into words (preserving spaces as separate tokens)
-function tokenizeText(text: string): { word: string; startIndex: number }[] {
-  const tokens: { word: string; startIndex: number }[] = [];
-  let currentWord = '';
-  let wordStart = 0;
-
-  for (let i = 0; i < text.length; i++) {
-    const char = text[i];
-    if (char === ' ') {
-      if (currentWord) {
-        tokens.push({ word: currentWord, startIndex: wordStart });
-        currentWord = '';
-      }
-      tokens.push({ word: ' ', startIndex: i });
-    } else {
-      if (!currentWord) {
-        wordStart = i;
-      }
-      currentWord += char;
-    }
-  }
-  if (currentWord) {
-    tokens.push({ word: currentWord, startIndex: wordStart });
-  }
-  return tokens;
-}
 
 export default function DecryptedText({
   text,
@@ -53,8 +59,6 @@ export default function DecryptedText({
   const lastUpdateRef = useRef<number>(-Infinity);
   const currentIndexRef = useRef(0);
 
-  // Tokenize text into words for word-based wrapping
-  const tokens = useMemo(() => tokenizeText(text), [text]);
 
   useEffect(() => {
     const cleanup = () => {
@@ -103,40 +107,7 @@ export default function DecryptedText({
   }, [text, speed, delay]);
 
   // Render words with nowrap to prevent mid-word breaks
-  const renderedContent = useMemo(() => {
-    return tokens.map((token, tokenIndex) => {
-      const { word, startIndex } = token;
-
-      // Space tokens - just render a space
-      if (word === ' ') {
-        return <span key={tokenIndex}> </span>;
-      }
-
-      // Word tokens - wrap in nowrap span
-      const chars = word.split('').map((char, charIndex) => {
-        const globalIndex = startIndex + charIndex;
-        const isRevealed = globalIndex < revealedCount;
-        const displayChar = isRevealed ? char : getRandomChar();
-
-        return (
-          <span
-            key={charIndex}
-            className={isRevealed ? 'decrypted-char' : 'encrypting-char'}
-            style={{ display: 'inline-block' }}
-          >
-            {displayChar}
-          </span>
-        );
-      });
-
-      return (
-        <span key={tokenIndex} style={{ whiteSpace: 'nowrap' }}>
-          {chars}
-        </span>
-      );
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tokens, revealedCount, scrambleKey]);
+  const renderedContent = CACHED_WORDS[revealedCount];
 
   return <span className={className}>{renderedContent}</span>;
 }
