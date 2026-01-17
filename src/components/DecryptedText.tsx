@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 interface DecryptedTextProps {
   text: string;
@@ -43,7 +43,6 @@ const CACHED_WORDS = ["jyHVLn​JV2J​wBHbZw​Z1TmSnMHQVW",
                       "Secure​ API​ Proxy​ Management"]
                     
 
-const getRandomChar = () => CHARSET[(Math.random() * CHARSET_LENGTH) | 0];
 
 
 export default function DecryptedText({
@@ -53,7 +52,6 @@ export default function DecryptedText({
   delay = 0,
 }: DecryptedTextProps) {
   const [revealedCount, setRevealedCount] = useState(0);
-  const [scrambleKey, setScrambleKey] = useState(0);
   const rafRef = useRef<number | null>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const lastUpdateRef = useRef<number>(-Infinity);
@@ -74,7 +72,6 @@ export default function DecryptedText({
 
     cleanup();
     setRevealedCount(0);
-    setScrambleKey(prev => prev + 1);
     currentIndexRef.current = 0;
     lastUpdateRef.current = -Infinity;
 
@@ -88,7 +85,6 @@ export default function DecryptedText({
         if (currentIndexRef.current < targetLength) {
           currentIndexRef.current++;
           setRevealedCount(currentIndexRef.current);
-          setScrambleKey(k => k + 1);
         } else {
           return;
         }
