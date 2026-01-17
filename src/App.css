@@ -1353,6 +1353,8 @@ html {
   background: var(--bg-card);
   backdrop-filter: blur(12px) saturate(180%);
   -webkit-backdrop-filter: blur(12px) saturate(180%);
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .features-table {
@@ -1381,7 +1383,8 @@ html {
   background: rgba(0, 0, 0, 0.03);
 }
 
-.features-table th:first-child {
+.features-table th:first-child,
+.features-table td:first-child {
   text-align: left;
   width: 40%;
 }
@@ -1456,6 +1459,26 @@ html {
 
 .feature-value.yes {
   color: var(--text-primary);
+}
+
+/* Table Action Buttons */
+.table-actions-row td {
+  padding: 1.5rem 1rem;
+  border-bottom: none;
+}
+
+.table-action-cell {
+  vertical-align: middle;
+}
+
+.table-btn {
+  display: inline-block;
+  padding: 0.625rem 1.25rem;
+  font-size: 0.875rem;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
 @media (max-width: 768px) {

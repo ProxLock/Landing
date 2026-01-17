@@ -233,6 +233,20 @@ function Pricing() {
                                         ));
                                     })()}
                                 </tbody>
+                                <tfoot>
+                                    <tr className="table-actions-row">
+                                        <td></td>
+                                        <td className="table-action-cell">
+                                            <a href={URLS.APP} className="btn btn-secondary table-btn">Get Started</a>
+                                        </td>
+                                        <td className="table-action-cell featured-column">
+                                            <a href={`${URLS.APP}/pricing`} className="btn btn-primary table-btn">Start {plusFreeTrialDays} Day Trial</a>
+                                        </td>
+                                        <td className="table-action-cell">
+                                            <a href={`${URLS.APP}/pricing`} className="btn btn-secondary table-btn">Start {proFreeTrialDays} Day Trial</a>
+                                        </td>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>
