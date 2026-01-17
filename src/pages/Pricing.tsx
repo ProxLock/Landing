@@ -11,9 +11,14 @@ function Pricing() {
                 <h1 className="section-title pricing-title">Simple Pricing</h1>
                 <p className="pricing-subtitle">Choose the plan that fits your needs.</p>
 
-                <div className="beta-notice">
-                    <span className="beta-badge">Beta Pricing</span>
-                    Subscribe now to lock in these rates forever.
+                <div className="beta-notice-wrapper">
+                    <div className="beta-notice">
+                        <span className="beta-notice-top">
+                            <span className="beta-badge">Special Pricing</span>
+                            <span>for <strong>CruzHacks</strong>.</span>
+                        </span>
+                        <span className="beta-notice-bottom">Get a 30-day free trial for new Plus subscribers</span>
+                    </div>
                 </div>
 
                 <div className="pricing-grid">
@@ -37,7 +42,7 @@ function Pricing() {
                         </div>
                         <p className="plan-billing">Only billed monthly</p>
                         <p className="plan-description">Get up to 10,000 proxy requests each month.</p>
-                        <a href={URLS.APP} className="btn btn-primary plan-btn">Start 7 Day Free Trial</a>
+                        <a href={URLS.APP} className="btn btn-primary plan-btn">Start 30 Day Special Free Trial</a>
                     </div>
 
                     {/* Pro Plan */}
