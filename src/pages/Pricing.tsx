@@ -41,7 +41,7 @@ function Pricing() {
                             <span className="period">/month</span>
                         </div>
                         <p className="plan-billing">Only billed monthly</p>
-                        <p className="plan-description">Get up to 10,000 proxy requests each month.</p>
+                        <p className="plan-description">Get up to 10,000 proxy requests each month and 1 user access key.</p>
                         <a href={URLS.APP} className="btn btn-primary plan-btn">Start 30 Day Special Free Trial</a>
                     </div>
 
@@ -53,7 +53,7 @@ function Pricing() {
                             <span className="period">/month</span>
                         </div>
                         <p className="plan-billing">Only billed monthly</p>
-                        <p className="plan-description">Get up to 25,000 proxy requests each month.</p>
+                        <p className="plan-description">Get up to 25,000 proxy requests each month and unlimited user access keys.</p>
                         <a href={URLS.APP} className="btn btn-secondary plan-btn">Start 7 Day Free Trial</a>
                     </div>
 
