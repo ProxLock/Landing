@@ -12,7 +12,7 @@ const FALLBACK_PLANS = {
     plus: {
         name: 'Plus',
         price: '9.99',
-        description: '111Get up to 10,000 proxy requests each month and 1 user access key.',
+        description: 'Get up to 10,000 proxy requests each month and 1 user access key.',
         freeTrialDays: 30,
     },
     pro: {
@@ -24,11 +24,17 @@ const FALLBACK_PLANS = {
 };
 
 function Pricing() {
-    const { data: plans, isLoading } = usePlans({ for: 'user' });
+    const { data: plans, isLoading, error } = usePlans({ for: 'user' });
 
-    // Find Plus and Pro plans from Clerk data
-    const plusPlan = plans?.find(plan => plan.id === PLUS_PLAN_ID);
-    const proPlan = plans?.find(plan => plan.id === PRO_PLAN_ID);
+    // Debug: Log what Clerk returns
+    console.log('Clerk usePlans data:', { plans, isLoading, error });
+    if (plans) {
+        plans.forEach(p => console.log('Plan:', { id: p.id, slug: p.slug, name: p.name }));
+    }
+
+    // Find Plus and Pro plans from Clerk data (check both id and slug)
+    const plusPlan = plans?.find(plan => plan.id === PLUS_PLAN_ID || plan.slug === PLUS_PLAN_ID);
+    const proPlan = plans?.find(plan => plan.id === PRO_PLAN_ID || plan.slug === PRO_PLAN_ID);
 
     // Use Clerk data or fallback values
     const plusPrice = plusPlan?.fee?.amountFormatted ?? FALLBACK_PLANS.plus.price;
