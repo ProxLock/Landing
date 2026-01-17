@@ -8,8 +8,7 @@ interface DecryptedTextProps {
 }
 
 // Use only alphanumeric chars for consistent widths in monospace fonts
-const CHARSET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-const CHARSET_LENGTH = CHARSET.length;
+// const CHARSET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
 // This needs to be updated if the text wants to be updated.
 // A simple script can generate it, if needed
