@@ -39,9 +39,7 @@ function Pricing() {
     const proPlan = plans?.find(plan => plan.id === PRO_PLAN_ID || plan.slug === PRO_PLAN_ID);
 
     // Use Clerk data or fallback values
-    const freePrice = freePlan?.fee?.amountFormatted ?? FALLBACK_PLANS.free.price;
     const freeDescription = freePlan?.description ?? FALLBACK_PLANS.free.description;
-
 
     const plusPrice = plusPlan?.fee?.amountFormatted ?? FALLBACK_PLANS.plus.price;
     const plusDescription = plusPlan?.description ?? FALLBACK_PLANS.plus.description;
@@ -77,7 +75,7 @@ function Pricing() {
                             <span className="currency">$</span>0
                         </div>
                         <p className="plan-billing">Always free</p>
-                        <p className="plan-description">Get up to 3,000 proxy requests each month.</p>
+                        <p className="plan-description">{freeDescription}</p>
                         <a href={URLS.APP} className="btn btn-secondary plan-btn">Get Started</a>
                     </div>
 
