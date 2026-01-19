@@ -6,9 +6,16 @@ import { usePlans } from '@clerk/clerk-react/experimental';
 // Plan IDs from Clerk
 const PLUS_PLAN_ID = '10k_requests';
 const PRO_PLAN_ID = '25k_requests';
+const FREE_PLAN_ID = 'free_user';
 
 // Fallback values if plans fail to load
 const FALLBACK_PLANS = {
+    free: {
+        name: 'Free',
+        price: '0',
+        description: 'Get up to 3,000 proxy requests each month.',
+        freeTrialDays: 0,
+    },
     plus: {
         name: 'Plus',
         price: '9.99',
@@ -27,10 +34,15 @@ function Pricing() {
     const { data: plans, isLoading } = usePlans({ for: 'user' });
 
     // Find Plus and Pro plans from Clerk data (check both id and slug)
+    const freePlan = plans?.find(plan => plan.id === FREE_PLAN_ID || plan.slug === FREE_PLAN_ID);
     const plusPlan = plans?.find(plan => plan.id === PLUS_PLAN_ID || plan.slug === PLUS_PLAN_ID);
     const proPlan = plans?.find(plan => plan.id === PRO_PLAN_ID || plan.slug === PRO_PLAN_ID);
 
     // Use Clerk data or fallback values
+    const freePrice = freePlan?.fee?.amountFormatted ?? FALLBACK_PLANS.free.price;
+    const freeDescription = freePlan?.description ?? FALLBACK_PLANS.free.description;
+
+
     const plusPrice = plusPlan?.fee?.amountFormatted ?? FALLBACK_PLANS.plus.price;
     const plusDescription = plusPlan?.description ?? FALLBACK_PLANS.plus.description;
     const plusFreeTrialDays = plusPlan?.freeTrialDays ?? FALLBACK_PLANS.plus.freeTrialDays;
@@ -139,8 +151,10 @@ function Pricing() {
                                         };
 
                                         // Find consolidated features
+                                        const freeRequestsFeature = freePlan?.features?.find(f => requestsPattern.test(f.name));
                                         const plusRequestsFeature = plusPlan?.features?.find(f => requestsPattern.test(f.name));
                                         const proRequestsFeature = proPlan?.features?.find(f => requestsPattern.test(f.name));
+                                        const freeAccessKeysFeature = freePlan?.features?.find(f => accessKeysPattern.test(f.name));
                                         const plusAccessKeysFeature = plusPlan?.features?.find(f => accessKeysPattern.test(f.name));
                                         const proAccessKeysFeature = proPlan?.features?.find(f => accessKeysPattern.test(f.name));
 
@@ -153,7 +167,7 @@ function Pricing() {
                                             rows.push({
                                                 id: 'monthly-requests',
                                                 label: 'Monthly Requests',
-                                                freeValue: '3,000',
+                                                freeValue: freeRequestsFeature ? extractValue(freeRequestsFeature.name) : '—',
                                                 plusValue: plusRequestsFeature ? extractValue(plusRequestsFeature.name) : '—',
                                                 proValue: proRequestsFeature ? extractValue(proRequestsFeature.name) : '—',
                                                 isConsolidated: true,
@@ -165,7 +179,7 @@ function Pricing() {
                                             rows.push({
                                                 id: 'access-keys',
                                                 label: 'Access Keys',
-                                                freeValue: '—',
+                                                freeValue: freeAccessKeysFeature ? extractValue(freeAccessKeysFeature.name) : '—',
                                                 plusValue: plusAccessKeysFeature ? extractValue(plusAccessKeysFeature.name) : '—',
                                                 proValue: proAccessKeysFeature ? extractValue(proAccessKeysFeature.name) : '—',
                                                 isConsolidated: true,
