@@ -140,9 +140,11 @@ function Pricing() {
 
                                         // Helper to extract numeric value from feature name
                                         const extractValue = (name: string): string => {
-                                            // Try to extract number with commas (e.g., "10,000")
-                                            const numMatch = name.match(/[\d,]+/);
-                                            if (numMatch) return numMatch[0];
+                                            // Handle numbers with underscores or commas (e.g. "5_000_requests" -> "5,000")
+                                            const numMatch = name.match(/(\d+(?:[_,]\d+)*)/);
+                                            if (numMatch) {
+                                                return numMatch[0].replace(/_/g, ',');
+                                            }
                                             // Check for "unlimited"
                                             if (/unlimited/i.test(name)) return 'Unlimited';
                                             return name;
@@ -165,9 +167,9 @@ function Pricing() {
                                             rows.push({
                                                 id: 'monthly-requests',
                                                 label: 'Monthly Requests',
-                                                freeValue: freeRequestsFeature ? extractValue(freeRequestsFeature.name) : '—',
-                                                plusValue: plusRequestsFeature ? extractValue(plusRequestsFeature.name) : '—',
-                                                proValue: proRequestsFeature ? extractValue(proRequestsFeature.name) : '—',
+                                                freeValue: freeRequestsFeature ? extractValue(freeRequestsFeature.slug) : '—',
+                                                plusValue: plusRequestsFeature ? extractValue(plusRequestsFeature.slug) : '—',
+                                                proValue: proRequestsFeature ? extractValue(proRequestsFeature.slug) : '—',
                                                 isConsolidated: true,
                                             });
                                         }
@@ -177,9 +179,9 @@ function Pricing() {
                                             rows.push({
                                                 id: 'access-keys',
                                                 label: 'Access Keys',
-                                                freeValue: freeAccessKeysFeature ? extractValue(freeAccessKeysFeature.name) : '—',
-                                                plusValue: plusAccessKeysFeature ? extractValue(plusAccessKeysFeature.name) : '—',
-                                                proValue: proAccessKeysFeature ? extractValue(proAccessKeysFeature.name) : '—',
+                                                freeValue: freeAccessKeysFeature ? extractValue(freeAccessKeysFeature.slug) : '—',
+                                                plusValue: plusAccessKeysFeature ? extractValue(plusAccessKeysFeature.slug) : '—',
+                                                proValue: proAccessKeysFeature ? extractValue(proAccessKeysFeature.slug) : '—',
                                                 isConsolidated: true,
                                             });
                                         }
