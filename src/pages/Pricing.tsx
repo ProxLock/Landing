@@ -132,114 +132,92 @@ function Pricing() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {/* Collect all unique features from Plus and Pro plans */}
+                                    {/* Collect all unique features from all plans */}
                                     {(() => {
-                                        // Pattern matchers for consolidated rows
-                                        const requestsPattern = /requests?/i;
-                                        const accessKeysPattern = /access\s*key/i;
+                                        // Helper to parse feature slug into base key and display value
+                                        const parseFeature = (slug: string) => {
+                                            let base = slug;
+                                            let value = null;
 
-                                        // Helper to extract numeric value from feature name
-                                        const extractValue = (name: string): string => {
-                                            // Handle numbers with underscores or commas (e.g. "5_000_requests" -> "5,000")
-                                            const numMatch = name.match(/(\d+(?:[_,]\d+)*)/);
-                                            if (numMatch) {
-                                                return numMatch[0].replace(/_/g, ',');
-                                            }
                                             // Check for "unlimited"
-                                            if (/unlimited/i.test(name)) return 'Unlimited';
-                                            return name;
-                                        };
-
-                                        // Find consolidated features
-                                        const freeRequestsFeature = freePlan?.features?.find(f => requestsPattern.test(f.name));
-                                        const plusRequestsFeature = plusPlan?.features?.find(f => requestsPattern.test(f.name));
-                                        const proRequestsFeature = proPlan?.features?.find(f => requestsPattern.test(f.name));
-                                        const freeAccessKeysFeature = freePlan?.features?.find(f => accessKeysPattern.test(f.name));
-                                        const plusAccessKeysFeature = plusPlan?.features?.find(f => accessKeysPattern.test(f.name));
-                                        const proAccessKeysFeature = proPlan?.features?.find(f => accessKeysPattern.test(f.name));
-
-                                        // Build consolidated rows
-                                        type FeatureRow = { id: string; label: string; freeValue: string; plusValue: string; proValue: string; isConsolidated: boolean };
-                                        const rows: FeatureRow[] = [];
-
-                                        // Monthly Requests row
-                                        if (plusRequestsFeature || proRequestsFeature) {
-                                            rows.push({
-                                                id: 'monthly-requests',
-                                                label: 'Monthly Requests',
-                                                freeValue: freeRequestsFeature ? extractValue(freeRequestsFeature.slug) : '—',
-                                                plusValue: plusRequestsFeature ? extractValue(plusRequestsFeature.slug) : '—',
-                                                proValue: proRequestsFeature ? extractValue(proRequestsFeature.slug) : '—',
-                                                isConsolidated: true,
-                                            });
-                                        }
-
-                                        // Access Keys row
-                                        if (plusAccessKeysFeature || proAccessKeysFeature) {
-                                            rows.push({
-                                                id: 'access-keys',
-                                                label: 'Access Keys',
-                                                freeValue: freeAccessKeysFeature ? extractValue(freeAccessKeysFeature.slug) : '—',
-                                                plusValue: plusAccessKeysFeature ? extractValue(plusAccessKeysFeature.slug) : '—',
-                                                proValue: proAccessKeysFeature ? extractValue(proAccessKeysFeature.slug) : '—',
-                                                isConsolidated: true,
-                                            });
-                                        }
-
-                                        // Add remaining features (not matching consolidated patterns)
-                                        const consolidatedIds = new Set([
-                                            plusRequestsFeature?.id,
-                                            proRequestsFeature?.id,
-                                            plusAccessKeysFeature?.id,
-                                            proAccessKeysFeature?.id,
-                                        ].filter(Boolean));
-
-                                        const otherFeatures = new Map<string, { name: string; inPlus: boolean; inPro: boolean }>();
-
-                                        plusPlan?.features?.forEach(f => {
-                                            if (!consolidatedIds.has(f.id)) {
-                                                otherFeatures.set(f.id, { name: f.name, inPlus: true, inPro: false });
-                                            }
-                                        });
-
-                                        proPlan?.features?.forEach(f => {
-                                            if (!consolidatedIds.has(f.id)) {
-                                                const existing = otherFeatures.get(f.id);
-                                                if (existing) {
-                                                    existing.inPro = true;
-                                                } else {
-                                                    otherFeatures.set(f.id, { name: f.name, inPlus: false, inPro: true });
+                                            if (/unlimited/i.test(slug)) {
+                                                value = 'Unlimited';
+                                                base = slug.replace(/unlimited/i, '');
+                                            } else {
+                                                // Match numbers (including those with underscores/commas)
+                                                // We use a non-capturing group for the boundary check
+                                                const numMatch = slug.match(/(?:^|[_\W])(\d+(?:[_,]\d+)*)(?:$|[_\W])/);
+                                                if (numMatch) {
+                                                    value = numMatch[1].replace(/_/g, ',');
+                                                    // Remove just the number part from the slug
+                                                    base = slug.replace(numMatch[1], '');
                                                 }
                                             }
+
+                                            // Clean up base slug (remove duplicate/trailing underscores)
+                                            base = base.replace(/__+/g, '_').replace(/^_+|_+$/g, '');
+
+                                            return { base, value };
+                                        };
+
+                                        // 1. Collect all unique features keyed by baseSlug
+                                        const featureMap = new Map<string, { label: string }>();
+
+                                        [freePlan, plusPlan, proPlan].forEach(plan => {
+                                            plan?.features?.forEach(f => {
+                                                const { base } = parseFeature(f.slug);
+                                                // If we haven't seen this base slug yet, add it
+                                                if (!featureMap.has(base)) {
+                                                    // Clean up label: remove numbers to make it generic
+                                                    // e.g. "3,000 Monthly Requests" -> "Monthly Requests"
+                                                    // e.g. "1 User Access Key" -> "User Access Key"
+                                                    let label = f.name;
+                                                    // Remove any sequence of digits (with optional commas)
+                                                    label = label.replace(/\b[\d,]+\b/g, '').trim();
+                                                    // Remove extra spaces if any
+                                                    label = label.replace(/\s+/g, ' ');
+
+                                                    featureMap.set(base, { label });
+                                                }
+                                            });
                                         });
 
-                                        // Add other features as regular rows
-                                        otherFeatures.forEach((feature, id) => {
-                                            rows.push({
-                                                id,
-                                                label: feature.name,
-                                                freeValue: '—',
-                                                plusValue: feature.inPlus ? '✓' : '—',
-                                                proValue: feature.inPro ? '✓' : '—',
-                                                isConsolidated: false,
-                                            });
+                                        // 2. Build rows
+                                        const rows = Array.from(featureMap.entries()).map(([baseSlug, { label }]) => {
+                                            const getDisplayValue = (plan: typeof freePlan) => {
+                                                // Find feature in this plan that matches the base slug
+                                                const feature = plan?.features?.find(f => parseFeature(f.slug).base === baseSlug);
+                                                if (!feature) return '—';
+
+                                                const { value } = parseFeature(feature.slug);
+                                                // If no value was extracted (no number/unlimited), treat as boolean
+                                                return value ?? '✓';
+                                            };
+
+                                            return {
+                                                id: baseSlug,
+                                                label: label,
+                                                freeValue: getDisplayValue(freePlan),
+                                                plusValue: getDisplayValue(plusPlan),
+                                                proValue: getDisplayValue(proPlan),
+                                            };
                                         });
 
                                         return rows.map((row) => (
                                             <tr key={row.id}>
                                                 <td className="feature-name">{row.label}</td>
                                                 <td className="feature-check">
-                                                    <span className={`${row.isConsolidated ? 'feature-value' : 'check-icon'} ${row.freeValue === '—' ? 'no' : ''}`}>
+                                                    <span className={`${row.freeValue === '✓' ? 'check-icon' : row.freeValue === '—' ? 'check-icon no' : 'feature-value'}`}>
                                                         {row.freeValue}
                                                     </span>
                                                 </td>
                                                 <td className="feature-check featured-column">
-                                                    <span className={`${row.isConsolidated ? 'feature-value' : 'check-icon'} ${row.plusValue === '—' ? 'no' : 'yes'}`}>
+                                                    <span className={`${row.plusValue === '✓' ? 'check-icon' : row.plusValue === '—' ? 'check-icon no' : 'feature-value'}`}>
                                                         {row.plusValue}
                                                     </span>
                                                 </td>
                                                 <td className="feature-check">
-                                                    <span className={`${row.isConsolidated ? 'feature-value' : 'check-icon'} ${row.proValue === '—' ? 'no' : 'yes'}`}>
+                                                    <span className={`${row.proValue === '✓' ? 'check-icon' : row.proValue === '—' ? 'check-icon no' : 'feature-value'}`}>
                                                         {row.proValue}
                                                     </span>
                                                 </td>
