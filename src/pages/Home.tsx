@@ -231,7 +231,7 @@ function Home() {
                         </div>
                     </SignedOut>
                     <SignedIn>
-                        <a href={URLS.APP} className="btn btn-primary" ref={waitlistBtnRef}><span>Get Started</span></a>
+                        <a href={URLS.APP} className="btn btn-primary"><span>Get Started</span></a>
                     </SignedIn>
                 </div>
             </section>
