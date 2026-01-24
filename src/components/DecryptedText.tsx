@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 interface DecryptedTextProps {
   text: string;
@@ -8,37 +8,41 @@ interface DecryptedTextProps {
 }
 
 // Use only alphanumeric chars for consistent widths in monospace fonts
-const CHARSET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-const CHARSET_LENGTH = CHARSET.length;
+// const CHARSET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
-const getRandomChar = () => CHARSET[(Math.random() * CHARSET_LENGTH) | 0];
+// This needs to be updated if the text wants to be updated.
+// A simple script can generate it, if needed
+const CACHED_WORDS = ["jyHVLn​JV2J​wBHbZw​Z1TmSnMHQVW",
+                      "SdNFVu​twPB​kT7UaI​jNIMGZHYbQp",
+                      "Senjyb​90w3​HmUJOC​1zUTtFOEBin",
+                      "SecaOd​8bfw​YDLMfb​fakn7ThG4et",
+                      "SecuWd​1Lkw​ZowJsA​K9wQ9SpuYmw",
+                      "Securd​I0Im​8pV3qU​uAtZlMdnlvE",
+                      "Secure​IFcP​1gzwcq​xN7EaCtJUBi",
+                      "Secure​ xyd​proGXf​2sL3lIdGTYC",
+                      "Secure​ A7l​Y0cciG​Iw4hToM3jjc",
+                      "Secure​ APQ​f3XwCm​kWOiEZ5sTJz",
+                      "Secure​ API​4lCXRK​oUswwCSY6Ve",
+                      "Secure​ API​ LYrcw​Nt8gLs4tXVN",
+                      "Secure​ API​ PTLP5​aTNnrpafdi9",
+                      "Secure​ API​ Pr8I8​aF7WUPK5THu",
+                      "Secure​ API​ Proqv​uP6j3EWczDQ",
+                      "Secure​ API​ ProxT​ejlqD7CFrKw",
+                      "Secure​ API​ Proxy​jxT68RyAYYL",
+                      "Secure​ API​ Proxy​ qedGajeNu4",
+                      "Secure​ API​ Proxy​ Mqume5kReM",
+                      "Secure​ API​ Proxy​ MaMYhcdsbi",
+                      "Secure​ API​ Proxy​ Manwxw1niA",
+                      "Secure​ API​ Proxy​ ManaEi4KHo",
+                      "Secure​ API​ Proxy​ Manag2BZFE",
+                      "Secure​ API​ Proxy​ Manageby6v",
+                      "Secure​ API​ Proxy​ ManagemE3S",
+                      "Secure​ API​ Proxy​ ManagemeSK",
+                      "Secure​ API​ Proxy​ Managemenq",
+                      "Secure​ API​ Proxy​ Management"]
+                    
 
-// Split text into words (preserving spaces as separate tokens)
-function tokenizeText(text: string): { word: string; startIndex: number }[] {
-  const tokens: { word: string; startIndex: number }[] = [];
-  let currentWord = '';
-  let wordStart = 0;
 
-  for (let i = 0; i < text.length; i++) {
-    const char = text[i];
-    if (char === ' ') {
-      if (currentWord) {
-        tokens.push({ word: currentWord, startIndex: wordStart });
-        currentWord = '';
-      }
-      tokens.push({ word: ' ', startIndex: i });
-    } else {
-      if (!currentWord) {
-        wordStart = i;
-      }
-      currentWord += char;
-    }
-  }
-  if (currentWord) {
-    tokens.push({ word: currentWord, startIndex: wordStart });
-  }
-  return tokens;
-}
 
 export default function DecryptedText({
   text,
@@ -47,14 +51,11 @@ export default function DecryptedText({
   delay = 0,
 }: DecryptedTextProps) {
   const [revealedCount, setRevealedCount] = useState(0);
-  const [scrambleKey, setScrambleKey] = useState(0);
   const rafRef = useRef<number | null>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const lastUpdateRef = useRef<number>(-Infinity);
   const currentIndexRef = useRef(0);
 
-  // Tokenize text into words for word-based wrapping
-  const tokens = useMemo(() => tokenizeText(text), [text]);
 
   useEffect(() => {
     const cleanup = () => {
@@ -70,7 +71,6 @@ export default function DecryptedText({
 
     cleanup();
     setRevealedCount(0);
-    setScrambleKey(prev => prev + 1);
     currentIndexRef.current = 0;
     lastUpdateRef.current = -Infinity;
 
@@ -84,7 +84,6 @@ export default function DecryptedText({
         if (currentIndexRef.current < targetLength) {
           currentIndexRef.current++;
           setRevealedCount(currentIndexRef.current);
-          setScrambleKey(k => k + 1);
         } else {
           return;
         }
@@ -103,40 +102,7 @@ export default function DecryptedText({
   }, [text, speed, delay]);
 
   // Render words with nowrap to prevent mid-word breaks
-  const renderedContent = useMemo(() => {
-    return tokens.map((token, tokenIndex) => {
-      const { word, startIndex } = token;
-
-      // Space tokens - just render a space
-      if (word === ' ') {
-        return <span key={tokenIndex}> </span>;
-      }
-
-      // Word tokens - wrap in nowrap span
-      const chars = word.split('').map((char, charIndex) => {
-        const globalIndex = startIndex + charIndex;
-        const isRevealed = globalIndex < revealedCount;
-        const displayChar = isRevealed ? char : getRandomChar();
-
-        return (
-          <span
-            key={charIndex}
-            className={isRevealed ? 'decrypted-char' : 'encrypting-char'}
-            style={{ display: 'inline-block' }}
-          >
-            {displayChar}
-          </span>
-        );
-      });
-
-      return (
-        <span key={tokenIndex} style={{ whiteSpace: 'nowrap' }}>
-          {chars}
-        </span>
-      );
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tokens, revealedCount, scrambleKey]);
+  const renderedContent = CACHED_WORDS[revealedCount];
 
   return <span className={className}>{renderedContent}</span>;
 }
