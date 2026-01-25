@@ -60,10 +60,9 @@ function Pricing() {
                 <div className="beta-notice-wrapper">
                     <div className="beta-notice">
                         <span className="beta-notice-top">
-                            <span className="beta-badge">Special Pricing</span>
-                            <span>for <strong>CruzHacks</strong>.</span>
+                            <span className="beta-badge">Beta Pricing Available</span>
                         </span>
-                        <span className="beta-notice-bottom">Get a {plusFreeTrialDays}-day free trial for new Plus subscribers</span>
+                        <span className="beta-notice-bottom">Subscribe now to lock in these rates forever. Prices may increase after beta.</span>
                     </div>
                 </div>
 
@@ -88,7 +87,7 @@ function Pricing() {
                         </div>
                         <p className="plan-billing">Only billed monthly</p>
                         <p className="plan-description">{plusDescription}</p>
-                        <a href={`${URLS.APP}/pricing`} className="btn btn-primary plan-btn">Start {plusFreeTrialDays} Day Special Free Trial</a>
+                        <a href={`${URLS.APP}/pricing`} className="btn btn-primary plan-btn">Start {plusFreeTrialDays} Day Free Trial</a>
                     </div>
 
                     {/* Pro Plan */}
