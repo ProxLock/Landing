@@ -4,6 +4,7 @@ import logo from '../assets/logo.svg';
 import { useState, useRef, useEffect } from 'react';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
+import ContactSection from '../components/ContactSection';
 import { URLS } from '../constants';
 
 function Home() {
@@ -236,8 +237,10 @@ function Home() {
                 </div>
             </section>
 
+            <ContactSection />
+
             <Footer />
-        </div>
+        </div >
     );
 }
 
