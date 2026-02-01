@@ -5,6 +5,7 @@ import { useState, useRef, useEffect } from 'react';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import ContactSection from '../components/ContactSection';
+import WhySection from '../components/WhySection';
 import { URLS } from '../constants';
 
 function Home() {
@@ -71,6 +72,8 @@ function Home() {
                     </div>
                 </div>
             </header>
+
+            <WhySection />
 
             <section id="how-it-works" className="how-it-works">
                 <div className="container">
@@ -239,7 +242,11 @@ function Home() {
 
             <ContactSection />
 
-            <Footer />
+            <Footer footnote={
+                <span>
+                    <sup>1</sup> Subject to the security guarantees of the underlying platform attestation services (e.g. Apple DeviceCheck, Google Play Integrity).
+                </span>
+            } />
         </div >
     );
 }
