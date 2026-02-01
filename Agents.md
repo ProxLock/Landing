@@ -33,6 +33,7 @@ When correcting or implementing Auth in Astro Islands:
 *   **Adapter**: Cloudflare (`@astrojs/cloudflare`).
 *   **Command**: `npm run build` runs `astro check && astro build`.
 *   **Environment**: Requires `PUBLIC_CLERK_PUBLISHABLE_KEY` (client) and `CLERK_SECRET_KEY` (server/middleware).
+  - Assume that the `.env` file is correctly configured with the required environment variables.
 
 ## Tools & commands
 *   `npm run dev`: Starts the Astro development server.
