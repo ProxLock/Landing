@@ -1,0 +1,22 @@
+---
+import { URLS } from '../constants';
+---
+
+<section id="contact" class="cta" style="background: transparent; padding: 2rem 0 6rem;">
+    <div class="container">
+        <div class="callout-card">
+            <div class="callout-content">
+                <h2 class="cta-title" style="font-size: 2rem; margin-bottom: 0.5rem; background: var(--text-section-title); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                    Still have questions?
+                </h2>
+                <p class="cta-description" style="margin: 0; font-size: 1.1rem;">
+                    We're here to help. Reach out to us via email or join our community.
+                </p>
+            </div>
+            <div class="hero-actions callout-actions">
+                <a href={URLS.EMAIL_CONTACT} class="btn btn-secondary">Email Us</a>
+                <a href={URLS.DISCORD} target="_blank" rel="noopener noreferrer" class="btn btn-primary">Join Discord</a>
+            </div>
+        </div>
+    </div>
+</section>
