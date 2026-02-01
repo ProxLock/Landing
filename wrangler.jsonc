@@ -1,7 +1,13 @@
 {
-    "name": "proxlock-landing",
-    "compatibility_date": "2025-11-13",
-    "assets": {
-      "directory": "./dist"
+  "name": "proxlock-landing",
+  "compatibility_date": "2025-11-13",
+  "assets": {
+    "directory": "./dist"
+  },
+  "observability": {
+    "logs": {
+      "enabled": false,
+      "invocation_logs": true
     }
   }
+}
