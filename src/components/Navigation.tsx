@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import logo from '../assets/logo.svg';
 import { URLS } from '../constants';
 
@@ -7,14 +7,38 @@ interface NavigationProps {
     showWaitlist?: boolean;
 }
 
-export default function Navigation({ isScrolled = false, showWaitlist = true }: NavigationProps) {
+export default function Navigation({ isScrolled: initialScrolled = false, showWaitlist: initialWaitlist = true }: NavigationProps) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isScrolled, setIsScrolled] = useState(initialScrolled);
+    const [showWaitlist, setShowWaitlist] = useState(initialWaitlist);
+
+    useEffect(() => {
+        // Listen for scroll state changes from Astro page
+        const handleScrollChange = (e: CustomEvent<{ isScrolled: boolean }>) => {
+            setIsScrolled(e.detail.isScrolled);
+        };
+
+        const handleWaitlistChange = (e: CustomEvent<{ showWaitlist: boolean }>) => {
+            setShowWaitlist(e.detail.showWaitlist);
+        };
+
+        window.addEventListener('scroll-state-change', handleScrollChange as EventListener);
+        window.addEventListener('waitlist-visibility-change', handleWaitlistChange as EventListener);
+
+        return () => {
+            window.removeEventListener('scroll-state-change', handleScrollChange as EventListener);
+            window.removeEventListener('waitlist-visibility-change', handleWaitlistChange as EventListener);
+        };
+    }, []);
+
+    // Get the correct src for the logo (handles both Vite and Astro)
+    const logoSrc = typeof logo === 'string' ? logo : logo.src;
 
     return (
         <>
             <div className={`sticky-header ${isScrolled ? 'scrolled' : ''}`}>
                 <a href="/" className="logo-link">
-                    <img src={logo} alt="ProxLock Logo" className="app-logo" />
+                    <img src={logoSrc} alt="ProxLock Logo" className="app-logo" />
                 </a>
                 <a href="/" className="logo-link">
                     <span className="sticky-title">ProxLock</span>
@@ -55,3 +79,4 @@ export default function Navigation({ isScrolled = false, showWaitlist = true }: 
         </>
     );
 }
+

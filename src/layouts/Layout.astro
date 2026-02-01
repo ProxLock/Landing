@@ -1,0 +1,62 @@
+---
+import '../index.css';
+import '../App.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'ProxLock',
+  description = 'Protect and manage your API keys with ease. ProxLock provides a secure gateway for your applications, ensuring your sensitive credentials stay safe.'
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="/OpenGraph.png" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="/OpenGraph.png" />
+
+    <!-- Theme initialization script - runs before render to prevent flash -->
+    <script is:inline>
+      (function() {
+        const setTheme = (isDark) => {
+          document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+        };
+        
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        setTheme(mediaQuery.matches);
+        
+        // Listen for system preference changes
+        mediaQuery.addEventListener('change', (e) => setTheme(e.matches));
+      })();
+    </script>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  html, body {
+    margin: 0;
+    width: 100%;
+    min-height: 100vh;
+  }
+</style>
