@@ -21,8 +21,7 @@ function PricingContent() {
 
     return (
 
-        <div className="container pricing-container">
-
+        <>
             <PricingGrid
                 isLoading={isLoading}
                 freePlan={freePlan}
@@ -35,7 +34,7 @@ function PricingContent() {
                 plusPlan={plusPlan}
                 proPlan={proPlan}
             />
-        </div>
+        </>
     );
 }
 
