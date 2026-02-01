@@ -46,7 +46,7 @@ export default function DecryptedText({
   speed = 8,
   delay = 0,
 }: DecryptedTextProps) {
-  const [revealedCount, setRevealedCount] = useState(0);
+  const [revealedCount, setRevealedCount] = useState(text.length);
   const [scrambleKey, setScrambleKey] = useState(0);
   const rafRef = useRef<number | null>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);

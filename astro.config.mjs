@@ -5,8 +5,8 @@ import clerk from '@clerk/astro';
 
 export default defineConfig({
     integrations: [
-        clerk(),
         react(),
+        clerk(),
     ],
     adapter: cloudflare(),
     output: 'server',
