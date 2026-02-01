@@ -49,7 +49,7 @@ const WhySection = () => {
                             </div>
                             <h3>Web Opt-In</h3>
                             <p>
-                                Web usage is opt-in on a key-by-key basis. You have full control over which keys have a lower trust level.
+                                Web is inherently less secure than mobile, but equally important. Only opt-in to web usage on the keys that need it and keep the other benefits of ProxLock.
                             </p>
                         </div>
                     </div>
