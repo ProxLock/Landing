@@ -9,8 +9,7 @@ interface Props {
 const { text, className = '', speed = 50, delay = 0 } = Astro.props;
 
 // Use only alphanumeric chars for consistent widths in monospace fonts
-const CHARSET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-const CHARSET_LENGTH = CHARSET.length;
+
 
 function tokenizeText(text: string): { word: string; startIndex: number }[] {
   const tokens: { word: string; startIndex: number }[] = [];
@@ -42,7 +41,7 @@ const tokens = tokenizeText(text);
 ---
 
 <span class={`decrypted-text-container ${className}`} data-speed={speed} data-delay={delay}>
-  {tokens.map((token, tokenIndex) => {
+  {tokens.map((token) => {
     if (token.word === ' ') {
       return <span class="ws"> </span>;
     }
@@ -63,102 +62,7 @@ const tokens = tokenizeText(text);
   })}
 </span>
 
-<script>
-  // Define CHARSET inside the script explicitly to avoid sharing scope issues if bundler behaves strictly
-  const CHARSET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  const CHARSET_LENGTH = CHARSET.length;
-  const getRandomChar = () => CHARSET[Math.floor(Math.random() * CHARSET_LENGTH)];
 
-  class DecryptedText extends HTMLElement {
-    constructor() {
-      super();
-      // Wait for the element to be available in the DOM
-      // For Astro, connection is usually immediate
-    }
-
-    connectedCallback() {
-      const container = this.querySelector('.decrypted-text-container');
-      if (!container) return; // Should not happen if structure matches
-
-      const speed = Number(container.getAttribute('data-speed') || 50);
-      const delay = Number(container.getAttribute('data-delay') || 0);
-      
-      const charElements = Array.from(container.querySelectorAll('.char')) as HTMLElement[];
-      const totalChars = charElements.length;
-
-      // Initial state: fully revealed (SSR/No-JS fallback)
-      // We want to hide/scramble them and start revealing
-      
-      let revealedCount = 0;
-      let currentIndex = 0;
-      let lastUpdate = -Infinity;
-      let rafId: number | null = null;
-      let timeoutId: number | null = null;
-
-      // Initialize state: all "encrypting"
-      charElements.forEach(el => {
-        el.classList.remove('revealed');
-        el.classList.add('encrypting');
-        el.textContent = getRandomChar();
-      });
-
-      const animate = (timestamp: number) => {
-        if (timestamp - lastUpdate >= speed) {
-            lastUpdate = timestamp;
-            
-            // Increment the index of revealed characters
-            if (currentIndex < totalChars) {
-                currentIndex++;
-                revealedCount = currentIndex;
-            }
-        }
-
-        // Update DOM
-        charElements.forEach((el, i) => {
-             const originalChar = el.getAttribute('data-char') || '';
-             
-             if (i < revealedCount) {
-                 // Revealed state
-                 if (!el.classList.contains('revealed')) {
-                     el.textContent = originalChar;
-                     el.classList.remove('encrypting');
-                     el.classList.add('revealed');
-                 }
-             } else {
-                 // Encrypting state calling random char
-                 el.textContent = getRandomChar();
-                 if (!el.classList.contains('encrypting')) {
-                     el.classList.remove('revealed');
-                     el.classList.add('encrypting');
-                 }
-             }
-        });
-
-        if (currentIndex < totalChars) {
-            rafId = requestAnimationFrame(animate);
-        } else {
-            // Ensure final state is clean
-             charElements.forEach(el => {
-                 el.textContent = el.getAttribute('data-char');
-                 el.classList.add('revealed');
-                 el.classList.remove('encrypting');
-             });
-        }
-      };
-
-      timeoutId = setTimeout(() => {
-        rafId = requestAnimationFrame(animate);
-      }, delay);
-
-      // Cleanup if disconnected (optional but good practice)
-      // Since this is just a script tag in Astro (not a custom element definition yet, 
-      // wait, I can make it just run on the selected elements)
-    }
-  }
-  
-  // To avoid defining a custom element globally which might conflict if multiple instances
-  // I will just use a querySelectorAll approach in a module script.
-</script>
 
 <script>
     const CHARSET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -177,7 +81,7 @@ const tokens = tokenizeText(text);
 
       let currentIndex = 0;
       let lastUpdate = -Infinity;
-      let rafId: number;
+
 
       // Set initial scrambled state immediately
       charElements.forEach(el => {
@@ -214,12 +118,12 @@ const tokens = tokenizeText(text);
           });
 
           if (currentIndex < totalChars) {
-              rafId = requestAnimationFrame(animate);
+              requestAnimationFrame(animate);
           }
       };
 
       setTimeout(() => {
-          rafId = requestAnimationFrame(animate);
+          requestAnimationFrame(animate);
       }, delay);
     }
 
