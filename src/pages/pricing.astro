@@ -1,10 +1,29 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import PricingPlans from '../components/pricing/PricingPlans';
+import PricingGrid from '../components/pricing/PricingGrid.astro';
+import FeaturesTable from '../components/pricing/FeaturesTable.astro';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer.astro';
+import { clerkClient } from '@clerk/astro/server';
+import { FREE_PLAN_ID, PLUS_PLAN_ID, PRO_PLAN_ID } from '../components/pricing/constants';
+import type { ClerkPlan } from '../components/pricing/types';
 
 import { URLS } from '../constants';
+
+let plans: ClerkPlan[] = [];
+
+try {
+    const response = await clerkClient(Astro).billing.getPlanList({ payerType: 'user' });
+    plans = response.data as unknown as ClerkPlan[];
+} catch (error) {
+    console.error("Failed to fetch plans from Clerk:", error);
+    // Silent failure, components will handle undefined plans by showing fallbacks
+}
+
+// Find Plus and Pro plans from Clerk data (check both id and slug)
+const freePlan = plans.find((plan) => plan.id === FREE_PLAN_ID || plan.slug === FREE_PLAN_ID);
+const plusPlan = plans.find((plan) => plan.id === PLUS_PLAN_ID || plan.slug === PLUS_PLAN_ID);
+const proPlan = plans.find((plan) => plan.id === PRO_PLAN_ID || plan.slug === PRO_PLAN_ID);
 ---
 
 <Layout title="Pricing - ProxLock" description="Simple, transparent pricing for ProxLock API proxy management. Choose the plan that fits your needs.">
@@ -25,9 +44,17 @@ import { URLS } from '../constants';
                 </div>
             </div>
 
-            <PricingPlans client:load />
+            <PricingGrid
+                freePlan={freePlan}
+                plusPlan={plusPlan}
+                proPlan={proPlan}
+            />
 
-
+            <FeaturesTable
+                freePlan={freePlan}
+                plusPlan={plusPlan}
+                proPlan={proPlan}
+            />
 
             <!-- Enterprise Card -->
             <div class="pricing-card full-width" style="margin-top: 3rem;">

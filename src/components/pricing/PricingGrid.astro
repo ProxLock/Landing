@@ -1,0 +1,60 @@
+---
+import { URLS } from '../../constants';
+import { FALLBACK_PLANS } from './constants';
+import type { ClerkPlan } from './types';
+
+interface Props {
+  freePlan?: ClerkPlan;
+  plusPlan?: ClerkPlan;
+  proPlan?: ClerkPlan;
+}
+
+const { freePlan, plusPlan, proPlan } = Astro.props;
+
+const freeDescription = freePlan?.description ?? FALLBACK_PLANS.free.description;
+
+const plusPrice = plusPlan?.fee?.amountFormatted ?? FALLBACK_PLANS.plus.price;
+const plusDescription = plusPlan?.description ?? FALLBACK_PLANS.plus.description;
+const plusFreeTrialDays = plusPlan?.freeTrialDays ?? FALLBACK_PLANS.plus.freeTrialDays;
+
+const proPrice = proPlan?.fee?.amountFormatted ?? FALLBACK_PLANS.pro.price;
+const proDescription = proPlan?.description ?? FALLBACK_PLANS.pro.description;
+const proFreeTrialDays = proPlan?.freeTrialDays ?? FALLBACK_PLANS.pro.freeTrialDays;
+---
+
+<div class="pricing-grid">
+    {/* Free Plan */}
+    <div class="pricing-card">
+        <h3 class="plan-name">Free</h3>
+        <div class="plan-price">
+            <span class="currency">$</span>0
+        </div>
+        <p class="plan-billing">Always free</p>
+        <p class="plan-description">{freeDescription}</p>
+        <a href={URLS.APP} class="btn btn-secondary plan-btn">Get Started</a>
+    </div>
+
+    {/* Plus Plan */}
+    <div class="pricing-card featured">
+        <h3 class="plan-name">{plusPlan?.name ?? FALLBACK_PLANS.plus.name}</h3>
+        <div class="plan-price">
+            <span class="currency">$</span>{plusPrice}
+            <span class="period">/month</span>
+        </div>
+        <p class="plan-billing">Only billed monthly</p>
+        <p class="plan-description">{plusDescription}</p>
+        <a href={`${URLS.APP}/pricing`} class="btn btn-primary plan-btn">Start {plusFreeTrialDays} Day Free Trial</a>
+    </div>
+
+    {/* Pro Plan */}
+    <div class="pricing-card">
+        <h3 class="plan-name">{proPlan?.name ?? FALLBACK_PLANS.pro.name}</h3>
+        <div class="plan-price">
+            <span class="currency">$</span>{proPrice}
+            <span class="period">/month</span>
+        </div>
+        <p class="plan-billing">Only billed monthly</p>
+        <p class="plan-description">{proDescription}</p>
+        <a href={`${URLS.APP}/pricing`} class="btn btn-secondary plan-btn">Start {proFreeTrialDays} Day Free Trial</a>
+    </div>
+</div>
