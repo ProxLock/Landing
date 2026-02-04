@@ -5,7 +5,7 @@ import ContactSection from '../components/ContactSection.astro';
 import Footer from '../components/Footer.astro';
 import Navigation from '../components/Navigation';
 import DecryptedText from '../components/DecryptedText.astro';
-import HomeAuthSection from '../components/HomeAuthSection';
+import HomeAuthSection from '../components/HomeAuthSection.astro';
 import { URLS } from '../constants';
 import logo from '../assets/logo.svg';
 ---
@@ -189,7 +189,7 @@ import logo from '../assets/logo.svg';
                 <p class="cta-description">
                     Join our beta program and get started today.
                 </p>
-                <HomeAuthSection client:load />
+                <HomeAuthSection />
             </div>
         </section>
 
