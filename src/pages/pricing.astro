@@ -2,7 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import PricingGrid from '../components/pricing/PricingGrid.astro';
 import FeaturesTable from '../components/pricing/FeaturesTable.astro';
-import Navigation from '../components/Navigation';
+
+import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
 import { clerkClient } from '@clerk/astro/server';
 import { FREE_PLAN_ID, PLUS_PLAN_ID, PRO_PLAN_ID } from '../components/pricing/constants';
@@ -28,7 +29,7 @@ const proPlan = plans.find((plan) => plan.id === PRO_PLAN_ID || plan.slug === PR
 
 <Layout title="Pricing - ProxLock" description="Simple, transparent pricing for ProxLock API proxy management. Choose the plan that fits your needs.">
     <div class="pricing-page">
-        <Navigation isScrolled={true} showWaitlist={true} client:load />
+        <Navigation isScrolled={true} showWaitlist={true} />
 
         <div class="container pricing-container">
             <!-- Pricing Header -->

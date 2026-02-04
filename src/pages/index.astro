@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import WhySection from '../components/WhySection.astro';
 import ContactSection from '../components/ContactSection.astro';
 import Footer from '../components/Footer.astro';
-import Navigation from '../components/Navigation';
+import Navigation from '../components/Navigation.astro';
 import DecryptedText from '../components/DecryptedText.astro';
 import HomeAuthSection from '../components/HomeAuthSection.astro';
 import { URLS } from '../constants';
@@ -12,7 +12,7 @@ import logo from '../assets/logo.svg';
 
 <Layout>
     <div class="landing-page">
-        <Navigation client:load isScrolled={false} showWaitlist={false} />
+        <Navigation isScrolled={false} showWaitlist={false} />
         <header class="hero">
             <img src={logo.src} alt="ProxLock Logo" class="hero-logo" />
             <div class="container">
