@@ -1,0 +1,14 @@
+---
+import { SignUp, SignedIn, SignedOut } from '@clerk/astro/components';
+import { URLS } from '../constants';
+---
+
+<SignedOut>
+    <div class="waitlist-container">
+        <SignUp />
+    </div>
+</SignedOut>
+
+<SignedIn>
+    <a href={URLS.APP} class="btn btn-primary"><span>Get Started</span></a>
+</SignedIn>

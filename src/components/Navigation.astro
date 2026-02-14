@@ -1,0 +1,105 @@
+---
+import logo from '../assets/logo.svg';
+import { URLS } from '../constants';
+
+interface Props {
+    isScrolled?: boolean;
+    showWaitlist?: boolean;
+}
+
+const { isScrolled: initialScrolled = false, showWaitlist: initialWaitlist = true } = Astro.props;
+---
+
+<div class={`sticky-header ${initialScrolled ? 'scrolled' : ''}`} id="sticky-header">
+    <a href="/" class="logo-link">
+        <img src={logo.src} alt="ProxLock Logo" class="app-logo" />
+    </a>
+    <a href="/" class="logo-link">
+        <span class="sticky-title">ProxLock</span>
+    </a>
+    <div class="header-actions">
+        <div class="nav-pill">
+            <a href="/pricing" class="nav-link">Pricing</a>
+            <a href={URLS.DOCS} class="nav-link">Docs</a>
+            <a href={URLS.DISCORD} class="nav-link" target="_blank" rel="noopener noreferrer">Discord</a>
+        </div>
+        <a
+            href={URLS.APP}
+            class={`btn btn-primary sticky-waitlist-btn ${initialWaitlist ? 'visible' : ''}`}
+            id="sticky-waitlist-btn"
+        >
+            <span>Get Started</span>
+        </a>
+
+        <button
+            class="nav-toggle"
+            id="nav-toggle"
+            aria-label="Toggle navigation"
+        >
+            <svg viewBox="0 0 24 24" class="hamburger-icon"><path d="M3 12h18M3 6h18M3 18h18" /></svg>
+            <svg viewBox="0 0 24 24" class="close-icon" style="display: none;"><path d="M18 6L6 18M6 6l12 12" /></svg>
+        </button>
+
+    </div>
+</div>
+<div class="mobile-menu" id="mobile-menu">
+    <a href="/pricing" class="mobile-nav-link">Pricing</a>
+    <a href={URLS.DOCS} class="mobile-nav-link">Docs</a>
+    <a href={URLS.DISCORD} class="mobile-nav-link" target="_blank" rel="noopener noreferrer">Discord</a>
+    <a href={URLS.APP} class="btn btn-primary">Get Started</a>
+</div>
+
+<script>
+    // Navigation logic
+    const header = document.getElementById('sticky-header');
+    const waitlistBtn = document.getElementById('sticky-waitlist-btn');
+    const navToggle = document.getElementById('nav-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const hamburgerIcon = navToggle?.querySelector('.hamburger-icon') as HTMLElement;
+    const closeIcon = navToggle?.querySelector('.close-icon') as HTMLElement;
+
+    // Toggle Mobile Menu
+    if (navToggle && mobileMenu && hamburgerIcon && closeIcon) {
+        navToggle.addEventListener('click', () => {
+            const isOpen = mobileMenu.classList.toggle('open');
+            hamburgerIcon.style.display = isOpen ? 'none' : 'block';
+            closeIcon.style.display = isOpen ? 'block' : 'none';
+        });
+
+        // Close menu when links are clicked
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                hamburgerIcon.style.display = 'block';
+                closeIcon.style.display = 'none';
+            });
+        });
+    }
+
+    // Scroll State Handler
+    const handleScrollChange = (e: CustomEvent<{ isScrolled: boolean }>) => {
+        if (header) {
+            if (e.detail.isScrolled) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        }
+    };
+
+    // Waitlist Visibility Handler
+    const handleWaitlistChange = (e: CustomEvent<{ showWaitlist: boolean }>) => {
+        if (waitlistBtn) {
+            if (e.detail.showWaitlist) {
+                waitlistBtn.classList.add('visible');
+            } else {
+                waitlistBtn.classList.remove('visible');
+            }
+        }
+    };
+
+    // Listen to custom events
+    window.addEventListener('scroll-state-change', handleScrollChange as EventListener);
+    window.addEventListener('waitlist-visibility-change', handleWaitlistChange as EventListener);
+</script>

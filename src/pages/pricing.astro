@@ -1,0 +1,77 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PricingGrid from '../components/pricing/PricingGrid.astro';
+import FeaturesTable from '../components/pricing/FeaturesTable.astro';
+
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+import { clerkClient } from '@clerk/astro/server';
+import { FREE_PLAN_ID, PLUS_PLAN_ID, PRO_PLAN_ID } from '../components/pricing/constants';
+import type { ClerkPlan } from '../components/pricing/types';
+
+import { URLS } from '../constants';
+
+let plans: ClerkPlan[] = [];
+
+try {
+    const response = await clerkClient(Astro).billing.getPlanList({ payerType: 'user' });
+    plans = response.data as unknown as ClerkPlan[];
+} catch (error) {
+    console.error("Failed to fetch plans from Clerk:", error);
+    // Silent failure, components will handle undefined plans by showing fallbacks
+}
+
+// Find Plus and Pro plans from Clerk data (check both id and slug)
+const freePlan = plans.find((plan) => plan.id === FREE_PLAN_ID || plan.slug === FREE_PLAN_ID);
+const plusPlan = plans.find((plan) => plan.id === PLUS_PLAN_ID || plan.slug === PLUS_PLAN_ID);
+const proPlan = plans.find((plan) => plan.id === PRO_PLAN_ID || plan.slug === PRO_PLAN_ID);
+---
+
+<Layout title="Pricing - ProxLock" description="Simple, transparent pricing for ProxLock API proxy management. Choose the plan that fits your needs.">
+    <div class="pricing-page">
+        <Navigation isScrolled={true} showWaitlist={true} />
+
+        <div class="container pricing-container">
+            <!-- Pricing Header -->
+            <h1 class="section-title pricing-title">Simple Pricing</h1>
+            <p class="pricing-subtitle">Choose the plan that fits your needs.</p>
+
+            <div class="beta-notice-wrapper">
+                <div class="beta-notice">
+                    <span class="beta-notice-top">
+                        <span class="beta-badge">Beta Pricing</span>
+                    </span>
+                    <span class="beta-notice-bottom">Subscribe now to lock in these rates forever. Prices may increase after beta.</span>
+                </div>
+            </div>
+
+            <PricingGrid
+                freePlan={freePlan}
+                plusPlan={plusPlan}
+                proPlan={proPlan}
+            />
+
+            <FeaturesTable
+                freePlan={freePlan}
+                plusPlan={plusPlan}
+                proPlan={proPlan}
+            />
+
+            <!-- Enterprise Card -->
+            <div class="pricing-card full-width" style="margin-top: 3rem;">
+                <div class="plan-header-group">
+                    <h3 class="plan-name">Enterprise</h3>
+                    <div class="plan-price">
+                        Custom
+                    </div>
+                </div>
+                <p class="plan-billing">Contact us for details</p>
+                <p class="plan-description">Need higher limits? Get in touch for a custom plan.</p>
+                <a href={URLS.EMAIL_CONTACT} class="btn btn-secondary plan-btn">Contact Us</a>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <Footer />
+    </div>
+</Layout>
