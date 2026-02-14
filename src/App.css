@@ -1248,6 +1248,51 @@ html {
     display: block;
     line-height: 1.4;
   }
+
+  /* Make enterprise card a horizontal banner on mobile like desktop */
+  .pricing-card.full-width {
+    padding: 1.25rem 1.5rem;
+    margin-top: 2rem !important;
+    text-align: center;
+  }
+
+  .pricing-card.full-width .plan-header-group {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    justify-content: center;
+  }
+
+  .pricing-card.full-width .plan-name {
+    font-size: 1.25rem;
+    margin-bottom: 0;
+  }
+
+  .pricing-card.full-width .plan-price {
+    font-size: 1rem;
+    margin-bottom: 0;
+    font-weight: 400;
+    color: var(--text-secondary);
+  }
+
+  .pricing-card.full-width .plan-billing {
+    display: none;
+  }
+
+  .pricing-card.full-width .plan-description {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+  }
+
+  .pricing-card.full-width .plan-btn {
+    padding: 0.5rem 1.25rem;
+    font-size: 0.875rem;
+    width: auto;
+    display: inline-block;
+  }
 }
 
 .pricing-grid {
