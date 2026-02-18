@@ -409,6 +409,7 @@
 
 .ws {
   white-space: pre-wrap;
+  font-size: 0.35em;
 }
 
 .encrypting-char {
