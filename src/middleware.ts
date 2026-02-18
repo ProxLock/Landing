@@ -1,5 +1,3 @@
-import { defineMiddleware } from 'astro:middleware';
+import { clerkMiddleware } from '@clerk/astro/server';
 
-export const onRequest = defineMiddleware(async (_context, next) => {
-  return next();
-});
+export const onRequest = clerkMiddleware();
