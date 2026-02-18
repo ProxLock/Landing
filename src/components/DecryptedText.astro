@@ -6,24 +6,23 @@ interface Props {
   delay?: number;
 }
 
-const { text, className = '', speed = 50, delay = 0 } = Astro.props;
+const { text, className = "", speed = 30, delay = 0 } = Astro.props;
 
 // Use only alphanumeric chars for consistent widths in monospace fonts
 
-
 function tokenizeText(text: string): { word: string; startIndex: number }[] {
   const tokens: { word: string; startIndex: number }[] = [];
-  let currentWord = '';
+  let currentWord = "";
   let wordStart = 0;
 
   for (let i = 0; i < text.length; i++) {
     const char = text[i];
-    if (char === ' ') {
+    if (char === " ") {
       if (currentWord) {
         tokens.push({ word: currentWord, startIndex: wordStart });
-        currentWord = '';
+        currentWord = "";
       }
-      tokens.push({ word: ' ', startIndex: i });
+      tokens.push({ word: " ", startIndex: i });
     } else {
       if (!currentWord) {
         wordStart = i;
@@ -40,100 +39,111 @@ function tokenizeText(text: string): { word: string; startIndex: number }[] {
 const tokens = tokenizeText(text);
 ---
 
-<span class={`decrypted-text-container ${className}`} data-speed={speed} data-delay={delay}>
-  {tokens.map((token) => {
-    if (token.word === ' ') {
-      return <span class="ws" set:html=" " />;
-    }
-    return (
-      <span class="word" style="white-space: nowrap;">
-        {token.word.split('').map((char, charIndex) => (
-          <span
-            class="char revealed"
-            style="display: inline-block;"
-            data-char={char}
-            data-index={token.startIndex + charIndex}
-          >
-            {char}
-          </span>
-        ))}
-      </span>
-    );
-  })}
+<span
+  class={`decrypted-text-container ${className}`}
+  data-speed={speed}
+  data-delay={delay}
+>
+  {
+    tokens.map((token) => {
+      if (token.word === " ") {
+        return <span class="ws" set:html=" " />;
+      }
+      return (
+        <span class="word" style="white-space: nowrap;">
+          {token.word.split("").map((char, charIndex) => (
+            <span
+              class="char revealed"
+              style="display: inline-block;"
+              data-char={char}
+              data-index={token.startIndex + charIndex}
+            >
+              {char}
+            </span>
+          ))}
+        </span>
+      );
+    })
+  }
 </span>
 
-
-
 <script>
-    const CHARSET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    const CHARSET_LENGTH = CHARSET.length;
-    const getRandomChar = () => CHARSET[Math.floor(Math.random() * CHARSET_LENGTH)];
+  const CHARSET =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const CHARSET_LENGTH = CHARSET.length;
+  const getRandomChar = () =>
+    CHARSET[Math.floor(Math.random() * CHARSET_LENGTH)];
 
-    function initDecryptedText(container: Element) {
-      if (container.hasAttribute('data-initialized')) return;
-      container.setAttribute('data-initialized', 'true');
+  function initDecryptedText(container: Element) {
+    if (container.hasAttribute("data-initialized")) return;
+    container.setAttribute("data-initialized", "true");
 
-      const speed = Number(container.getAttribute('data-speed') || 50);
-      const delay = Number(container.getAttribute('data-delay') || 0);
-      
-      const charElements = Array.from(container.querySelectorAll('.char')) as HTMLElement[];
-      const totalChars = charElements.length;
+    const speed = Number(container.getAttribute("data-speed") || 50);
+    const delay = Number(container.getAttribute("data-delay") || 0);
 
-      let currentIndex = 0;
-      let lastUpdate = -Infinity;
+    const charElements = Array.from(
+      container.querySelectorAll(".char"),
+    ) as HTMLElement[];
+    const totalChars = charElements.length;
 
+    let currentIndex = 0;
+    let lastUpdate = -Infinity;
 
-      // Set initial scrambled state immediately
-      charElements.forEach(el => {
-        el.classList.remove('revealed');
-        el.classList.add('encrypting');
-        el.textContent = getRandomChar();
+    // Set initial scrambled state immediately
+    charElements.forEach((el) => {
+      el.classList.remove("revealed");
+      el.classList.add("encrypting");
+      el.textContent = getRandomChar();
+    });
+
+    const animate = (timestamp: number) => {
+      if (timestamp - lastUpdate >= speed) {
+        lastUpdate = timestamp;
+        if (currentIndex < totalChars) {
+          currentIndex++;
+        }
+      }
+
+      // Randomize unrevealed characters on every frame (or every update?)
+      // The React version randomizes unrevealed characters on every render/frame if they aren't revealed.
+      // Let's randomize all unrevealed characters every frame.
+
+      charElements.forEach((el, index) => {
+        if (index < currentIndex) {
+          // Reveal
+          const original = el.getAttribute("data-char");
+          if (el.textContent !== original) {
+            el.textContent = original;
+            el.classList.remove("encrypting");
+            el.classList.add("revealed");
+          }
+        } else {
+          // Scramble
+          el.textContent = getRandomChar();
+        }
       });
 
-      const animate = (timestamp: number) => {
-          if (timestamp - lastUpdate >= speed) {
-              lastUpdate = timestamp;
-              if (currentIndex < totalChars) {
-                  currentIndex++;
-              }
-          }
+      if (currentIndex < totalChars) {
+        requestAnimationFrame(animate);
+      }
+    };
 
-          // Randomize unrevealed characters on every frame (or every update?)
-          // The React version randomizes unrevealed characters on every render/frame if they aren't revealed.
-          // Let's randomize all unrevealed characters every frame.
-          
-          charElements.forEach((el, index) => {
-              if (index < currentIndex) {
-                  // Reveal
-                  const original = el.getAttribute('data-char');
-                  if (el.textContent !== original) {
-                      el.textContent = original;
-                      el.classList.remove('encrypting');
-                      el.classList.add('revealed');
-                  }
-              } else {
-                  // Scramble
-                  el.textContent = getRandomChar();
-              }
-          });
+    setTimeout(() => {
+      requestAnimationFrame(animate);
+    }, delay);
+  }
 
-          if (currentIndex < totalChars) {
-              requestAnimationFrame(animate);
-          }
-      };
+  // Run on load
+  document.addEventListener("DOMContentLoaded", () => {
+    document
+      .querySelectorAll(".decrypted-text-container")
+      .forEach(initDecryptedText);
+  });
 
-      setTimeout(() => {
-          requestAnimationFrame(animate);
-      }, delay);
-    }
-
-    // Run on load
-    document.addEventListener('DOMContentLoaded', () => {
-        document.querySelectorAll('.decrypted-text-container').forEach(initDecryptedText);
-    });
-
-    // Run on Astro page navigation (if ViewTransitions were used, though user isn't using them yet, good future proofing)
-    document.addEventListener('astro:page-load', () => {
-        document.querySelectorAll('.decrypted-text-container').forEach(initDecryptedText);
-    });
+  // Run on Astro page navigation (if ViewTransitions were used, though user isn't using them yet, good future proofing)
+  document.addEventListener("astro:page-load", () => {
+    document
+      .querySelectorAll(".decrypted-text-container")
+      .forEach(initDecryptedText);
+  });
 </script>
