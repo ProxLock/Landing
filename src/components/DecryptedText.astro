@@ -43,7 +43,7 @@ const tokens = tokenizeText(text);
 <span class={`decrypted-text-container ${className}`} data-speed={speed} data-delay={delay}>
   {tokens.map((token) => {
     if (token.word === ' ') {
-      return <span class="ws"> </span>;
+      return <span class="ws" set:html=" " />;
     }
     return (
       <span class="word" style="white-space: nowrap;">

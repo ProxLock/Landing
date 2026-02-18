@@ -405,7 +405,11 @@
   letter-spacing: 0.05em;
   overflow-wrap: break-word;
   word-wrap: break-word;
-  hyphens: auto;
+  word-spacing: -0.4em;
+}
+
+.ws {
+  white-space: pre-wrap;
 }
 
 .encrypting-char {
