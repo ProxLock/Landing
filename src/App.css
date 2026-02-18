@@ -405,6 +405,7 @@
   letter-spacing: 0.05em;
   overflow-wrap: break-word;
   word-wrap: break-word;
+  word-spacing: -0.4em;
 }
 
 .ws {
