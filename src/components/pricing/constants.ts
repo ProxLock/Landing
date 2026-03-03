@@ -15,7 +15,7 @@ export const FALLBACK_PLANS = {
         name: 'Plus',
         price: '9.99',
         description: 'Good for scaling applications as you serve a medium size audience.',
-        freeTrialDays: 30,
+        freeTrialDays: 7,
     },
     pro: {
         name: 'Pro',
