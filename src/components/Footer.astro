@@ -28,8 +28,12 @@ const currentYear = new Date().getFullYear();
                 </svg>
             </a>
         </div>
-        <p class="footer-text">
-            © {currentYear} ProxLock. All rights reserved.
-        </p>
+        <div class="footer-bottom" style="display: flex; justify-content: center; align-items: center; gap: 1rem; margin-top: 1rem;">
+            <p class="footer-text" style="margin: 0;">
+                © {currentYear} ProxLock. All rights reserved.
+            </p>
+            <span style="color: var(--text-tertiary);">|</span>
+            <a href={URLS.TERMS} class="footer-link" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Terms of Service</a>
+        </div>
     </div>
 </footer>

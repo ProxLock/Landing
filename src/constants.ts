@@ -7,4 +7,5 @@ export const URLS = {
   GITHUB_FRONTEND: 'https://github.com/ProxLock/Frontend',
   GITHUB_LANDING: 'https://github.com/ProxLock/Landing',
   EMAIL_CONTACT: 'mailto:morris@proxlock.dev',
+  TERMS: '/terms',
 } as const;
