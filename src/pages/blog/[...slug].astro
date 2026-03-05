@@ -21,7 +21,7 @@ const dateFormatted = entry.data.pubDate.toLocaleDateString('en-US', { year: 'nu
 ---
 
 <Layout title={`${entry.data.title} | ProxLock Blog`} description={entry.data.description}>
-    <div class="landing-page">
+    <div class="landing-page blog-post-page">
         <Navigation isScrolled={true} showWaitlist={true} />
 
         <!-- Header exactly matches Pricing layout pattern but uses hero wrapper so backgrounds don't conflict -->
@@ -40,7 +40,7 @@ const dateFormatted = entry.data.pubDate.toLocaleDateString('en-US', { year: 'nu
         </header>
 
         <!-- Blog content separated into its own home-page style section -->
-        <section class="blog-section" style="padding: 2rem 0 6rem; background: var(--bg-section); border-top: 1px solid var(--border-primary);">
+        <section class="blog-section" style="padding: 2rem 0 6rem;">
             <div class="container blog-post-outer" style="margin: 0 auto;">
                 {entry.data.image && (
                     <div class="blog-post-featured-image" style="margin-top: 0; margin-bottom: 3rem;">

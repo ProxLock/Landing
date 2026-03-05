@@ -1796,6 +1796,15 @@ html {
 
 /* Blog Specific Styles */
 
+/* Blog Post Page - darker, flatter background */
+.blog-post-page {
+  background: linear-gradient(180deg, #151615 0%, #151615 100%) !important;
+}
+
+[data-theme="light"] .blog-post-page {
+  background: linear-gradient(180deg, #f8faf9 0%, #ffffff 100%) !important;
+}
+
 /* Blog List Grid */
 .blog-post-outer {
   text-align: left;
