@@ -24,9 +24,9 @@ const dateFormatted = entry.data.pubDate.toLocaleDateString('en-US', { year: 'nu
     <div class="landing-page">
         <Navigation isScrolled={true} showWaitlist={true} />
 
-        <!-- Header exactly matches Pricing layout pattern -->
-        <header class="pricing-page" style="min-height: auto; padding-top: 120px; padding-bottom: 0;">
-            <div class="container pricing-container blog-post-outer" style="padding-top: 0; padding-bottom: 1.5rem;">
+        <!-- Header exactly matches Pricing layout pattern but uses hero wrapper so backgrounds don't conflict -->
+        <header class="hero" style="min-height: auto; padding-top: 120px; padding-bottom: 1.5rem;">
+            <div class="container pricing-container blog-post-outer" style="padding-top: 0; padding-bottom: 0;">
                 <div class="blog-meta" style="justify-content: flex-start; margin-bottom: 1.5rem;">
                     <time datetime={entry.data.pubDate.toISOString()} class="blog-date">{dateFormatted}</time>
                     {entry.data.category && (
@@ -35,7 +35,7 @@ const dateFormatted = entry.data.pubDate.toLocaleDateString('en-US', { year: 'nu
                 </div>
 
                 <h1 class="section-title pricing-title" style="margin-bottom: 1rem;">{entry.data.title}</h1>
-                <p class="pricing-subtitle" style="margin-bottom: 2rem;">by ProxLock Team</p>
+                <p class="pricing-subtitle" style="margin-bottom: 0;">by ProxLock Team</p>
             </div>
         </header>
 

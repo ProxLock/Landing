@@ -16,11 +16,11 @@ const description = "Read our latest thoughts on API security, app development, 
     <div class="landing-page">
         <Navigation isScrolled={true} showWaitlist={true} />
 
-        <!-- Header exactly matches Pricing -->
-        <header class="pricing-page" style="min-height: auto; padding-top: 120px; padding-bottom: 1rem;">
-            <div class="container pricing-container" style="padding-top: 0; padding-bottom: 2rem;">
+        <!-- Header exactly matches Pricing layout style but uses hero wrapper so backgrounds don't conflict -->
+        <header class="hero" style="min-height: auto; padding-top: 120px; padding-bottom: 3rem;">
+            <div class="container pricing-container" style="padding-top: 0; padding-bottom: 0;">
                 <h1 class="section-title pricing-title">Blog</h1>
-                <p class="pricing-subtitle">Insights, news, and technical deep dives on securing the modern API landscape.</p>
+                <p class="pricing-subtitle" style="margin-bottom: 0;">Insights, news, and technical deep dives on securing the modern API landscape.</p>
             </div>
         </header>
 
