@@ -24,5 +24,9 @@ In future posts, you can expect:
 Stay tuned for more updates, and thank you for joining us on this journey!
 
 ```typescript
-console.log("Welcome to ProxLock!");
+const proxlockSignoff = () => {
+    console.log("Welcome to ProxLock!");
+};
+
+proxlockSignoff();
 ```
