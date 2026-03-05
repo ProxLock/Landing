@@ -1,0 +1,61 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Navigation.astro';
+import Footer from '../../components/Footer.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort((a, b) => {
+	const dateDiff = b.data.pubDate.valueOf() - a.data.pubDate.valueOf();
+	if (dateDiff !== 0) return dateDiff;
+	return (a.data.pubDateOrder ?? 0) - (b.data.pubDateOrder ?? 0);
+});
+
+const title = "Blog - ProxLock";
+const description = "Read our latest thoughts on API security, app development, and technology.";
+---
+
+<Layout title={title} description={description}>
+    <div class="landing-page">
+        <Navigation isScrolled={true} showWaitlist={true} />
+
+        <!-- Header exactly matches Pricing layout style but uses hero wrapper so backgrounds don't conflict -->
+        <header class="hero" style="min-height: auto; padding-top: 120px; padding-bottom: 3rem;">
+            <div class="container pricing-container" style="padding-top: 0; padding-bottom: 0;">
+                <h1 class="section-title pricing-title">Blog</h1>
+                <p class="pricing-subtitle" style="margin-bottom: 0;">Insights, news, and technical deep dives on securing the modern API landscape.</p>
+            </div>
+        </header>
+
+        <!-- Posts as a distinct section just like the home page -->
+        <section class="blog-section" style="padding: 4rem 0 6rem; background: var(--bg-section-reversed); border-top: 1px solid var(--border-primary);">
+            <div class="container">
+                <div class="blog-grid">
+                    {posts.map((post, index) => (
+                        <a href={`/blog/${post.slug}`} class={`blog-card feature-card ${index === 0 ? 'blog-card-featured' : ''}`}>
+                            {post.data.image && index === 0 && (
+                                <div class="blog-card-image">
+                                    <img src={post.data.image} alt={post.data.title} />
+                                </div>
+                            )}
+                            <div class="blog-card-content">
+                                <div class="blog-meta">
+                                    <span class="blog-date">{post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                                    {post.data.category && (
+                                        <span class="blog-category">{post.data.category}</span>
+                                    )}
+                                </div>
+                                <h2 class="blog-title">{post.data.title}</h2>
+                                <p class="blog-description">
+                                    {post.data.description}
+                                </p>
+                                <span class="blog-link repo-link">Read More →</span>
+                            </div>
+                        </a>
+                    ))}
+                </div>
+            </div>
+        </section>
+
+        <Footer />
+    </div>
+</Layout>
