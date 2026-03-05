@@ -4,6 +4,7 @@ description: "ProxLock is now open source. Check out our GitHub repository to le
 pubDate: "2026-03-04"
 category: "Announcements"
 image: "/posts/opensource.png"
+pubDateOrder: 1
 ---
 
 # ProxLock is Now Open Source 🎉

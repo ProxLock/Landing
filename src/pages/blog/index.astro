@@ -4,9 +4,11 @@ import Navigation from '../../components/Navigation.astro';
 import Footer from '../../components/Footer.astro';
 import { getCollection } from 'astro:content';
 
-const posts = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
+const posts = (await getCollection('blog')).sort((a, b) => {
+	const dateDiff = b.data.pubDate.valueOf() - a.data.pubDate.valueOf();
+	if (dateDiff !== 0) return dateDiff;
+	return (a.data.pubDateOrder ?? 0) - (b.data.pubDateOrder ?? 0);
+});
 
 const title = "Blog - ProxLock";
 const description = "Read our latest thoughts on API security, app development, and technology.";
