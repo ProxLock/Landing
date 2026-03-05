@@ -39,6 +39,7 @@ const proxlockSignoff = () => {
     console.log("ProxLock, now open source.");
 }
 
+// Signing off
 proxlockSignoff();
 ```
 

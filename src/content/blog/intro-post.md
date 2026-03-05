@@ -29,5 +29,6 @@ const proxlockSignoff = () => {
     console.log("Welcome to ProxLock!");
 };
 
+// Signing off
 proxlockSignoff();
 ```
