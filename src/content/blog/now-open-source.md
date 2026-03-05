@@ -15,7 +15,7 @@ We are proud to announce that ProxLock is now open source. Previously, ProxLock 
 
 Public source code is traditionally safer because anyone can audit the code, and that was a massive driving factor in our decision to be source available at launch. 
 
-However, that still restricts many people from using the software that we built and want to share with the world. Starting today, ProxLock is open source and can be used in any environment, including production. 
+However, that still restricts many people from using the software that we built and want to share with the world. Starting today, ProxLock is open source and can be used in any environment, including production and we have modified the [license](https://github.com/ProxLock/Backend/blob/master/License) to allow for this.
 
 We hope that this will encourage more people to use ProxLock and contribute to its development. The ability to host ProxLock on your own infrastructure is a game changer for many use cases, and we are excited to see what the community will do with it.
 
