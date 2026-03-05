@@ -21,47 +21,45 @@ const dateFormatted = entry.data.pubDate.toLocaleDateString('en-US', { year: 'nu
 ---
 
 <Layout title={`${entry.data.title} | ProxLock Blog`} description={entry.data.description}>
-    <div class="landing-page blog-post-page-container">
+    <div class="landing-page">
         <Navigation isScrolled={true} showWaitlist={true} />
-        
-        <article class="blog-post-page">
-            <header class="blog-post-header hero">
-                <div class="container blog-container">
-                    <div class="blog-post-meta">
-                        <time datetime={entry.data.pubDate.toISOString()} class="blog-post-date">{dateFormatted}</time>
-                        {entry.data.category && (
-                            <span class="blog-post-category">{entry.data.category}</span>
-                        )}
-                    </div>
-                    
-                    <h1 class="hero-title blog-post-title">{entry.data.title}</h1>
-                    <p class="hero-subtitle blog-post-author">by ProxLock Team</p>
-                    
-                    {entry.data.image && (
-                        <div class="blog-post-featured-image">
-                            <img src={entry.data.image} alt={`Illustration for ${entry.data.title}`} />
-                        </div>
+
+        <!-- Header exactly matches Pricing layout pattern -->
+        <header class="pricing-page" style="min-height: auto; padding-top: 120px; padding-bottom: 0;">
+            <div class="container pricing-container blog-post-outer" style="padding-top: 0; padding-bottom: 1.5rem;">
+                <div class="blog-meta" style="justify-content: flex-start; margin-bottom: 1.5rem;">
+                    <time datetime={entry.data.pubDate.toISOString()} class="blog-date">{dateFormatted}</time>
+                    {entry.data.category && (
+                        <span class="blog-category">{entry.data.category}</span>
                     )}
                 </div>
-            </header>
 
-            <!-- Blog Post Content -->
-            <div class="blog-post-content-area">
-                <div class="container blog-container">
-                    <div class="blog-post-body" id="markdown-content">
-                        <Content />
-                    </div>
+                <h1 class="section-title pricing-title" style="margin-bottom: 1rem;">{entry.data.title}</h1>
+                <p class="pricing-subtitle" style="margin-bottom: 2rem;">by ProxLock Team</p>
+            </div>
+        </header>
 
-                    <!-- Post Navigation -->
-                    <div class="blog-post-navigation">
-                        <a href="/blog" class="btn btn-secondary back-to-blog">← Back to Blog</a>
+        <!-- Blog content separated into its own home-page style section -->
+        <section class="blog-section" style="padding: 2rem 0 6rem; background: var(--bg-section); border-top: 1px solid var(--border-primary);">
+            <div class="container blog-post-outer" style="margin: 0 auto;">
+                {entry.data.image && (
+                    <div class="blog-post-featured-image" style="margin-top: 0; margin-bottom: 3rem;">
+                        <img src={entry.data.image} alt={`Illustration for ${entry.data.title}`} />
                     </div>
+                )}
+
+                <!-- Post Body -->
+                <div class="blog-post-body" id="markdown-content">
+                    <Content />
+                </div>
+
+                <!-- Navigation -->
+                <div class="blog-post-navigation">
+                    <a href="/blog" class="btn btn-secondary back-to-blog">← Back to Blog</a>
                 </div>
             </div>
-        </article>
+        </section>
 
         <Footer />
     </div>
 </Layout>
-
-

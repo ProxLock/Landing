@@ -1794,37 +1794,17 @@ html {
 
 /* Blog Specific Styles */
 
-.blog-page-container,
-.blog-post-page-container {
-  padding-top: 80px; /* Space for the fixed header */
-}
-
-/* Base Blog Header overriding hero padding */
-.blog-header.hero {
-  padding: 4rem 0 3rem;
-  min-height: auto;
-}
-
-.blog-header.hero .hero-title {
-  font-size: clamp(3rem, 6vw, 4.5rem);
-  margin-bottom: 0.5rem;
-}
-
-.blog-header.hero .hero-subtitle {
-  font-size: clamp(1.25rem, 3vw, 1.75rem);
-  margin-bottom: 1rem;
-}
-
-.blog-content {
-  padding: 2rem 0 6rem;
-}
-
-.blog-container {
-  max-width: 800px;
-  margin: 0 auto;
-}
-
 /* Blog List Grid */
+.blog-post-outer {
+  text-align: left;
+  max-width: 800px;
+}
+
+.blog-post-outer .pricing-title,
+.blog-post-outer .pricing-subtitle {
+  text-align: left;
+}
+
 .blog-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
