@@ -28,8 +28,13 @@ const description = "Read our latest thoughts on API security, app development, 
         <section class="blog-section" style="padding: 4rem 0 6rem; background: var(--bg-section-reversed); border-top: 1px solid var(--border-primary);">
             <div class="container">
                 <div class="blog-grid">
-                    {posts.map((post) => (
-                        <a href={`/blog/${post.slug}`} class="blog-card feature-card">
+                    {posts.map((post, index) => (
+                        <a href={`/blog/${post.slug}`} class={`blog-card feature-card ${index === 0 ? 'blog-card-featured' : ''}`}>
+                            {post.data.image && index === 0 && (
+                                <div class="blog-card-image">
+                                    <img src={post.data.image} alt={post.data.title} />
+                                </div>
+                            )}
                             <div class="blog-card-content">
                                 <div class="blog-meta">
                                     <span class="blog-date">{post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
