@@ -34,11 +34,7 @@ We are excited to see what the community will do with ProxLock. We encourage you
 Stay tuned for more updates, and thank you for joining us on this journey!
 
 ```typescript
-// A small preview of what's to come
-const secureYourKeys = () => {
-    console.log("Welcome to ProxLock!");
-};
-secureYourKeys();
+console.log("ProxLock, now open source.");
 ```
 
 Check out our [GitHub Repositories](https://github.com/orgs/ProxLock/repositories) to learn more.
