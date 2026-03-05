@@ -1,7 +1,7 @@
 ---
 title: "Welcome to ProxLock Blog"
 description: "Exploring the future of API security and bringing ProxLock's capabilities to light."
-pubDate: "2026-03-04"
+pubDate: "2026-03-02"
 category: "Announcements"
 image: "/OpenGraph.png"
 ---
