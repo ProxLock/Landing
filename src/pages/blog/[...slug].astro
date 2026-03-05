@@ -1,0 +1,67 @@
+---
+import { getEntry } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Navigation.astro';
+import Footer from '../../components/Footer.astro';
+
+export const prerender = false;
+
+const { slug } = Astro.params;
+if (!slug) return Astro.redirect('/404');
+
+const entry = await getEntry('blog', slug);
+
+if (!entry) {
+  return Astro.redirect('/404');
+}
+
+const { Content } = await entry.render();
+
+const dateFormatted = entry.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<Layout title={`${entry.data.title} | ProxLock Blog`} description={entry.data.description}>
+    <div class="landing-page blog-post-page-container">
+        <Navigation isScrolled={true} showWaitlist={true} />
+        
+        <article class="blog-post-page">
+            <header class="blog-post-header hero">
+                <div class="container blog-container">
+                    <div class="blog-post-meta">
+                        <time datetime={entry.data.pubDate.toISOString()} class="blog-post-date">{dateFormatted}</time>
+                        {entry.data.category && (
+                            <span class="blog-post-category">{entry.data.category}</span>
+                        )}
+                    </div>
+                    
+                    <h1 class="hero-title blog-post-title">{entry.data.title}</h1>
+                    <p class="hero-subtitle blog-post-author">by ProxLock Team</p>
+                    
+                    {entry.data.image && (
+                        <div class="blog-post-featured-image">
+                            <img src={entry.data.image} alt={`Illustration for ${entry.data.title}`} />
+                        </div>
+                    )}
+                </div>
+            </header>
+
+            <!-- Blog Post Content -->
+            <div class="blog-post-content-area">
+                <div class="container blog-container">
+                    <div class="blog-post-body" id="markdown-content">
+                        <Content />
+                    </div>
+
+                    <!-- Post Navigation -->
+                    <div class="blog-post-navigation">
+                        <a href="/blog" class="btn btn-secondary back-to-blog">← Back to Blog</a>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <Footer />
+    </div>
+</Layout>
+
+

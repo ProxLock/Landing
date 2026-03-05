@@ -1,0 +1,59 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Navigation.astro';
+import Footer from '../../components/Footer.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const title = "Blog - ProxLock";
+const description = "Read our latest thoughts on API security, app development, and technology.";
+---
+
+<Layout title={title} description={description}>
+    <div class="landing-page blog-page-container">
+        <!-- Re-use navigation. Force it to be visible by simulating a single state if needed, or just let it behave normally.
+             Waitlist can be shown or hidden. We'll show it. -->
+        <Navigation isScrolled={true} showWaitlist={true} />
+        
+        <header class="blog-header hero">
+            <div class="container">
+                <h1 class="hero-title">Blog</h1>
+                <p class="hero-subtitle">Latest from ProxLock</p>
+                <p class="hero-description" style="margin-bottom: 0;">
+                    Insights, news, and technical deep dives on securing the modern API landscape.
+                </p>
+            </div>
+        </header>
+
+        <section class="blog-content">
+            <div class="container">
+                <div class="blog-grid">
+                    {posts.map((post) => (
+                        <a href={`/blog/${post.slug}`} class="blog-card feature-card">
+                            <div class="blog-card-content">
+                                <div class="blog-meta">
+                                    <span class="blog-date">{post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                                    {post.data.category && (
+                                        <span class="blog-category">{post.data.category}</span>
+                                    )}
+                                </div>
+                                <h2 class="blog-title">{post.data.title}</h2>
+                                <p class="blog-description">
+                                    {post.data.description}
+                                </p>
+                                <span class="blog-link repo-link">Read More →</span>
+                            </div>
+                        </a>
+                    ))}
+                </div>
+            </div>
+        </section>
+
+        <Footer />
+    </div>
+</Layout>
+
+
