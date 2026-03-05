@@ -1847,6 +1847,18 @@ html {
   flex-direction: column;
 }
 
+/* Override feature-card hover for blog cards */
+.blog-card.feature-card::before {
+  display: none;
+}
+
+.blog-card.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 12px 40px var(--shadow-primary),
+    inset 0 1px 0 var(--border-primary);
+}
+
 .blog-meta,
 .blog-post-meta {
   display: flex;
